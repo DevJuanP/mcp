@@ -106,7 +106,10 @@
         actor.classList.toggle("is-active", config[index].actors.includes(i));
       });
       if (pulse) {
-        pulse.style.left = `${10 + config[index].pulse * 20}%`;
+        const target = actors[config[index].pulse];
+        if (target) {
+          pulse.style.left = `${target.offsetLeft + target.offsetWidth / 2}px`;
+        }
       }
       if (payloadLabel) payloadLabel.textContent = config[index].label;
       if (payloadNote) payloadNote.textContent = config[index].note;

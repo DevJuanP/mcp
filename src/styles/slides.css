@@ -2345,15 +2345,31 @@
 .actor-rail__pulse {
   position: absolute;
   left: 8%;
-  top: 26px;
+  top: 0;
   z-index: 3;
-  width: 12px;
-  height: 12px;
-  margin-left: -6px;
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  border: 2px solid var(--flow);
   border-radius: 50%;
-  background: var(--flow);
-  box-shadow: 0 0 0 5px var(--flow-dim), 0 0 18px var(--flow);
+  background: transparent;
+  box-shadow: 0 0 0 4px var(--flow-dim),
+    0 0 22px color-mix(in srgb, var(--flow) 45%, transparent);
+  pointer-events: none;
   transition: left 620ms var(--ease-in-out);
+  animation: actor-pulse 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes actor-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px var(--flow-dim),
+      0 0 16px color-mix(in srgb, var(--flow) 30%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px var(--flow-dim),
+      0 0 28px color-mix(in srgb, var(--flow) 55%, transparent);
+  }
 }
 
 .stepper {
