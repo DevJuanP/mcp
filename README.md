@@ -14,7 +14,7 @@ Un **solo archivo HTML** (`dist/index.html`) que:
 
 - Se abre con **doble clic**, sin servidor, sin instalar nada y **sin conexión a internet**.
 - Funciona como un **PowerPoint**: flechas para avanzar y retroceder, contador de slides, barra de progreso, vista general y pantalla completa.
-- Incluye **27 slides** con diagramas SVG, ejemplos de código y explicaciones paso a paso.
+- Incluye **28 slides** con diagramas SVG, ejemplos de código y explicaciones paso a paso.
 - Trae **notas del presentador** para quien lo exponga.
 - Tiene **tema oscuro y tema claro**, y una versión **imprimible** (una slide por página, lista para exportar a PDF).
 - Pesa poco y no descarga nada en tiempo de ejecución: las fuentes van embebidas.
@@ -98,7 +98,7 @@ Todo dato técnico está referenciado a las fuentes oficiales de MCP y a los anu
 ├─ .github/workflows/         # deploy automático a GitHub Pages
 ├─ src/
 │  ├─ index.template.html    # plantilla del deck
-│  ├─ slides/                # 27 slides, un archivo por diapositiva
+│  ├─ slides/                # 28 slides, un archivo por diapositiva
 │  ├─ scripts/
 │  │  ├─ deck.js             # navegación, overlays, tema, atajos
 │  │  └─ diagrams.js         # diagramas interactivos por pasos
@@ -110,7 +110,7 @@ Todo dato técnico está referenciado a las fuentes oficiales de MCP y a los anu
 └─ dist/index.html           # resultado final, autocontenido
 ```
 
-Para editar contenido, toca el archivo de la slide correspondiente en `src/slides/` y vuelve a compilar. El build valida que existan exactamente 27 slides, así que si agregas o quitas una, ajusta el número en `build.mjs`.
+Para editar contenido, toca el archivo de la slide correspondiente en `src/slides/` y vuelve a compilar. El build valida que existan exactamente 28 slides, así que si agregas o quitas una, ajusta el número en `build.mjs`.
 
 ---
 

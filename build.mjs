@@ -1,7 +1,7 @@
 /**
  * build.mjs — ensambla el deck en un único dist/index.html autocontenido.
  *
- * - Lee las 27 slides de src/slides en orden numérico.
+ * - Lee las 28 slides de src/slides en orden numérico.
  * - Embebe las fuentes .woff2 como data URI.
  * - Compacta el CSS y elimina comentarios HTML.
  * - No descarga nada en runtime: el resultado abre con doble clic y sin red.
@@ -98,9 +98,9 @@ async function build() {
     .filter((name) => /^\d{2}-.+\.html$/.test(name))
     .sort();
 
-  if (slideFiles.length !== 27) {
+  if (slideFiles.length !== 28) {
     throw new Error(
-      `Se esperaban 27 slides y se encontraron ${slideFiles.length}: ${slideFiles.join(", ")}`
+      `Se esperaban 28 slides y se encontraron ${slideFiles.length}: ${slideFiles.join(", ")}`
     );
   }
 

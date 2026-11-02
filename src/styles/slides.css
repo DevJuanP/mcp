@@ -3841,3 +3841,27 @@
   fill: var(--warn);
   stroke: none;
 }
+
+/* ---------- Slide 28: código abierto ---------- */
+
+.s28 .repo__url {
+  display: block;
+  margin-top: 6px;
+  color: var(--flow);
+  font-family: var(--font-mono);
+  font-size: 40px;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+.s28 .repo__url:hover {
+  color: #8ee8e8;
+}
+
+.s28 .panel p {
+  margin: 0;
+}
