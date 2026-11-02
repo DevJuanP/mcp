@@ -1,0 +1,65 @@
+name: Deploy deck
+
+# Compila el deck y publica dist/ en GitHub Pages en cada push a main.
+# El resultado es un único archivo estático: no hay runtime ni servidor que mantener.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build deck
+        run: npm run build
+
+      # El artefacto publicado sale siempre de este build, así que un dist/
+      # desactualizado no rompe nada: solo implica que la copia que se abre con
+      # doble clic quedó atrás. Se avisa sin bloquear el deploy.
+      - name: Avisar si dist/index.html está desincronizado
+        run: |
+          if git diff --quiet -- dist/index.html; then
+            echo "dist/index.html está sincronizado con src/"
+          else
+            echo "::warning file=dist/index.html::dist/index.html no coincide con el build. Ejecuta 'npm run build' y commitea el resultado para que la copia offline quede al día."
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

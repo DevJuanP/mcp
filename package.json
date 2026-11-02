@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Deck interactivo sobre el Model Context Protocol (spec 2026-07-28)",
+  "homepage": "https://devjuanp.github.io/mcp/",
   "type": "module",
   "scripts": {
     "build": "node build.mjs",

@@ -33,11 +33,17 @@ Es útil tanto para **estudiar MCP por tu cuenta** como para **darlo en clase, e
 
 ## Cómo verlo
 
-### Opción 1: abrir el archivo ya compilado (lo más rápido)
+### Opción 1: abrir la versión online (lo más rápido)
 
-Abre `dist/index.html` en tu navegador. Listo.
+**https://devjuanp.github.io/mcp/**
 
-### Opción 2: compilarlo tú mismo
+Se puede compartir tal cual: no requiere instalación y funciona en cualquier navegador. Para saltar a una slide concreta, añade `#/17` a la URL.
+
+### Opción 2: abrir el archivo ya compilado
+
+Abre `dist/index.html` en tu navegador. Listo. Funciona sin servidor y sin conexión.
+
+### Opción 3: compilarlo tú mismo
 
 Requiere **Node.js 20 o superior**. No hay dependencias que instalar.
 
@@ -89,6 +95,7 @@ Todo dato técnico está referenciado a las fuentes oficiales de MCP y a los anu
 
 ```text
 .
+├─ .github/workflows/         # deploy automático a GitHub Pages
 ├─ src/
 │  ├─ index.template.html    # plantilla del deck
 │  ├─ slides/                # 27 slides, un archivo por diapositiva
@@ -107,9 +114,18 @@ Para editar contenido, toca el archivo de la slide correspondiente en `src/slide
 
 ---
 
+## Deploy
+
+El sitio vive en **GitHub Pages** y se publica con el workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): en cada push a `main` se ejecuta `npm run build` y se sube `dist/` como artefacto estático. No hay servidor, secretos ni pasos manuales después del primero.
+
+- La primera vez hay que activar **Settings → Pages → Source: GitHub Actions** en el repo.
+- Si el `dist/index.html` commiteado no coincide con el build, el workflow deja un aviso pero no bloquea la publicación (el artefacto siempre se regenera).
+
+---
+
 ## Estado
 
-Proyecto en mantenimiento activo: hay una ronda de corrección de bugs en curso y después se publicará un **deploy** de la versión final.
+Proyecto en mantenimiento activo. Cada push a `main` compila el deck y lo publica automáticamente en GitHub Pages; el flujo está en [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
 ---
 

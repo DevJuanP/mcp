@@ -1,0 +1,6 @@
+# Normaliza los finales de línea a LF para que el build sea idéntico en
+# Windows y en CI (el deck se ensambla concatenando texto tal cual).
+* text=auto eol=lf
+
+*.woff2 binary
+*.png binary
