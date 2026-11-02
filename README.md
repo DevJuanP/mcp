@@ -23,6 +23,14 @@ Es útil tanto para **estudiar MCP por tu cuenta** como para **darlo en clase, e
 
 ---
 
+## Cómo se ve
+
+![Portada del deck: MCP, el protocolo que le pone puertos a la IA](docs/img/deck-portada.png)
+
+![Slide de flujo: una llamada MCP paso a paso, con el request y el response en JSON-RPC](docs/img/deck-flujo.png)
+
+---
+
 ## Cómo verlo
 
 ### Opción 1: abrir el archivo ya compilado (lo más rápido)
@@ -89,8 +97,8 @@ Todo dato técnico está referenciado a las fuentes oficiales de MCP y a los anu
 │  │  └─ diagrams.js         # diagramas interactivos por pasos
 │  └─ styles/                # tokens, deck, slides y estilos de impresión
 ├─ assets/fonts/             # fuentes .woff2 (se embeben en el build)
-├─ docs/plan-implementacion.md
-├─ qa/                       # capturas y PDF de control de calidad
+├─ docs/                     # plan de implementación e imágenes del README
+├─ qa/                       # capturas locales de QA (ignorada por git)
 ├─ build.mjs                 # ensambla todo en un único HTML
 └─ dist/index.html           # resultado final, autocontenido
 ```

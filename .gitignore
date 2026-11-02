@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# Evidencia local de QA (capturas y PDF de revisión)
+qa/
