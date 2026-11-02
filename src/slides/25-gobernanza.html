@@ -1,0 +1,110 @@
+<section
+  class="slide slide--dense s25"
+  data-act="Acto 6 · Seguridad y cierre"
+  data-title="Gobernanza y versiones"
+  data-fig="FIG. 25 — DE ANTHROPIC A LA FUNDACIÓN"
+  data-src="S8 S12 S13 S14"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 6 · Seguridad y cierre</p>
+    <h1>Gobernanza y versiones</h1>
+    <p class="lede">
+      MCP nació en Anthropic y hoy vive en una fundación. La versión se escribe como una
+      fecha y solo cambia cuando hay un cambio incompatible.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 18px">
+    <div class="timeline" style="height: 150px">
+      <span class="timeline__line"></span>
+
+      <div class="timeline__item" style="left: 0">
+        <div class="timeline__date">25 nov 2024</div>
+        <div class="timeline__title">Nace MCP</div>
+        <div class="timeline__desc">Anthropic lo publica. David Soria Parra y Justin Spahr-Summers.</div>
+      </div>
+
+      <div class="timeline__item" style="left: 270px">
+        <div class="timeline__date">2025-03-26</div>
+        <div class="timeline__title">Auth y HTTP+SSE</div>
+        <div class="timeline__desc">Se añade authorization y el transporte HTTP+SSE.</div>
+      </div>
+
+      <div class="timeline__item" style="left: 540px">
+        <div class="timeline__date">2025-06-18</div>
+        <div class="timeline__title">Más capacidades</div>
+        <div class="timeline__desc">Structured output, elicitation y resource links.</div>
+      </div>
+
+      <div class="timeline__item" style="left: 810px">
+        <div class="timeline__date">2025-11-25</div>
+        <div class="timeline__title">Última con handshake</div>
+        <div class="timeline__desc">La sesión llega hasta esta revisión.</div>
+      </div>
+
+      <div class="timeline__item" style="left: 1080px">
+        <div class="timeline__date">9 dic 2025</div>
+        <div class="timeline__title">Donación</div>
+        <div class="timeline__desc">Pasa a la Linux Foundation / AAIF.</div>
+      </div>
+
+      <div class="timeline__item timeline__item--now" style="left: 1350px">
+        <div class="timeline__date">2026-07-28</div>
+        <div class="timeline__title">Stateless</div>
+        <div class="timeline__desc">Sin handshake ni sesiones; discover obligatorio.</div>
+      </div>
+    </div>
+
+    <div class="gov-grid">
+      <div class="gov-card">
+        <h3>Versión con fecha</h3>
+        <p>
+          El formato <code>YYYY-MM-DD</code> marca la última ruptura. Los cambios
+          backwards-compatible no mueven la versión. Estados: <b>Draft</b>, <b>Current</b> y
+          <b>Final</b>.
+        </p>
+      </div>
+      <div class="gov-card">
+        <h3>SEPs y deprecación</h3>
+        <p>
+          Los cambios pasan por <b>Specification Enhancement Proposals</b>. Una feature puede
+          estar <b>Active</b>, <b>Deprecated</b> o <b>Removed</b>; la ventana mínima de
+          deprecación es de 12 meses.
+        </p>
+      </div>
+      <div class="gov-card">
+        <h3>Fundación</h3>
+        <p>
+          Donado en dic 2025 a la <b>Linux Foundation</b> / <b>Agentic AI Foundation</b>. La
+          gobernanza es vendor-neutral: Anthropic lo creó, pero no lo controla en solitario.
+        </p>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <span class="takeaway__icon">→</span>
+      <span>
+        La versión que importa hoy es <b>2026-07-28</b>. Todo lo anterior sigue en la spec por
+        compatibilidad, pero no es el punto de partida para una implementación nueva.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      La fecha de versión no es la fecha de publicación: es la fecha del último cambio
+      incompatible. Por eso hay revisiones que comparten versión aunque se hayan publicado
+      correcciones.
+    </p>
+    <p>
+      <strong>La donación importa más de lo que parece:</strong> saca el protocolo de un solo
+      vendor y lo mete en una fundación. Para una empresa que evalúa adoptarlo, eso reduce el
+      riesgo de lock-in institucional.
+    </p>
+    <p>
+      El ciclo de deprecación de 12 meses explica por qué Roots, Sampling y Logging siguen en
+      la spec aunque estén deprecados: no desaparecen de un día para otro. Pero una
+      implementación nueva no debería añadirlos.
+    </p>
+  </aside>
+</section>

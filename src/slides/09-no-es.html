@@ -1,0 +1,83 @@
+<section
+  class="slide slide--dense s09"
+  data-act="Acto 2 · La definición"
+  data-title="Qué NO es MCP"
+  data-fig="FIG. 09 — CINCO LÍMITES DEL CONCEPTO"
+  data-src="S1 S2"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 2 · La definición</p>
+    <h1>Qué NO es MCP</h1>
+    <p class="lede">
+      La mitad de la confusión desaparece cuando se delimita el contrato. MCP no es la
+      inteligencia, ni el agente, ni la aplicación: es la capa que las conecta.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 18px">
+    <div class="no-cards">
+      <div class="no-card anim" style="--d: 0ms">
+        <span class="no-card__ghost" aria-hidden="true">01</span>
+        <h3>No es un modelo</h3>
+        <p>No entrena, no infiere y no reemplaza al LLM. Es el cable entre el modelo y el resto del mundo.</p>
+      </div>
+      <div class="no-card anim" style="--d: 70ms">
+        <span class="no-card__ghost" aria-hidden="true">02</span>
+        <h3>No es un agente</h3>
+        <p>No decide objetivos ni planea pasos. Define cómo se exponen y se invocan capacidades.</p>
+      </div>
+      <div class="no-card anim" style="--d: 140ms">
+        <span class="no-card__ghost" aria-hidden="true">03</span>
+        <h3>No es un framework</h3>
+        <p>No impone arquitectura, UI ni ciclo de vida de la app. Los SDKs son conveniencia, no el protocolo.</p>
+      </div>
+      <div class="no-card anim" style="--d: 210ms">
+        <span class="no-card__ghost" aria-hidden="true">04</span>
+        <h3>No reemplaza tu API</h3>
+        <p>Tu API sigue existiendo. MCP la describe para que un modelo pueda descubrirla y usarla.</p>
+      </div>
+      <div class="no-card anim" style="--d: 280ms">
+        <span class="no-card__ghost" aria-hidden="true">05</span>
+        <h3>No dicta el contexto</h3>
+        <p>No decide qué entra en el context window ni cómo se gestiona. Eso es responsabilidad del host.</p>
+      </div>
+    </div>
+
+    <div class="quote" style="margin-top: 4px">
+      <span class="quote__label">S2 · Architecture overview · alcance explícito</span>
+      <p class="quote__original" lang="en">
+        “MCP focuses solely on the protocol for context exchange—it does not dictate how AI
+        applications use LLMs or manage the provided context.”
+      </p>
+      <p class="quote__tr">
+        MCP se centra únicamente en el protocolo para el intercambio de contexto: no dicta
+        cómo las aplicaciones de IA usan los LLM ni cómo gestionan el contexto que reciben.
+      </p>
+    </div>
+
+    <div class="takeaway">
+      <span class="takeaway__icon">→</span>
+      <span>
+        <b>MCP es una capa de contrato.</b> Lo que construyas por encima —el agente, la UI,
+        la política de contexto— es tu diseño, no el del protocolo.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Esta slide evita tres discusiones típicas: “¿MCP es un agente?”, “¿es un framework?”,
+      “¿reemplaza a mi API?”. La respuesta corta a las tres es no. La respuesta útil es:
+      MCP define el contrato de intercambio de contexto, nada más.
+    </p>
+    <p>
+      La cita de la arquitectura es la más importante del deck: <strong>MCP no dicta cómo
+      la aplicación usa el LLM ni gestiona el contexto</strong>. Eso deja fuera decisiones
+      de producto que mucha gente atribuye al protocolo.
+    </p>
+    <p>
+      Si la audiencia es de plataforma, remarca el punto 04: MCP es una capa de descripción
+      encima de lo que ya tienes, no un sustituto de tu API o de tu gateway.
+    </p>
+  </aside>
+</section>

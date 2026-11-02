@@ -1,0 +1,121 @@
+/* ============================================================
+   tokens.css — roles semánticos, dos temas, tipografía
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  /* Superficies */
+  --bg: #0a1017;
+  --bg-elev: #111a24;
+  --bg-elev-2: #16212d;
+  --bg-inset: #0c141c;
+  --paper: #f7f5f0;
+
+  /* Tinta */
+  --ink: #e6edf3;
+  --ink-dim: #8fa3b4;
+  --ink-faint: #5b7083;
+  --ink-invert: #0a1017;
+
+  /* Líneas y retícula */
+  --line: rgba(120, 190, 220, 0.16);
+  --line-strong: rgba(120, 190, 220, 0.32);
+  --grid: rgba(120, 190, 220, 0.06);
+  --grid-strong: rgba(120, 190, 220, 0.1);
+
+  /* Semántica */
+  --flow: #38d9d9;
+  --flow-dim: rgba(56, 217, 217, 0.13);
+  --flow-line: rgba(56, 217, 217, 0.45);
+  --model: #8b7cf6;
+  --model-dim: rgba(139, 124, 246, 0.14);
+  --model-line: rgba(139, 124, 246, 0.45);
+  --warn: #f0b429;
+  --warn-dim: rgba(240, 180, 41, 0.12);
+  --risk: #ff6b6b;
+  --risk-dim: rgba(255, 107, 107, 0.11);
+  --ok: #4ade80;
+  --ok-dim: rgba(74, 222, 128, 0.11);
+
+  /* Sombras y halos */
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 24px 60px -36px rgba(0, 0, 0, 0.85);
+  --halo-flow: 0 0 0 1px var(--flow-line), 0 0 32px -8px var(--flow);
+  --halo-model: 0 0 0 1px var(--model-line), 0 0 32px -8px var(--model);
+
+  /* Tipografía */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Code", Consolas, monospace;
+
+  --fs-display: 122px;
+  --fs-h1: 68px;
+  --fs-h2: 42px;
+  --fs-h3: 27px;
+  --fs-body: 23px;
+  --fs-small: 19px;
+  --fs-micro: 15px;
+  --fs-mono: 15px;
+
+  --tracking-tight: -0.035em;
+  --tracking-wide: 0.16em;
+
+  /* Geometría */
+  --pad-x: 96px;
+  --pad-top: 104px;
+  --pad-bottom: 88px;
+  --radius: 3px;
+  --hair: 1px;
+
+  /* Movimiento */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur: 320ms;
+  --dur-slow: 720ms;
+
+  /* Chrome */
+  --chrome-h: 58px;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f7f5f0;
+  --bg-elev: #ffffff;
+  --bg-elev-2: #efece4;
+  --bg-inset: #efece4;
+
+  --ink: #101820;
+  --ink-dim: #4e5d68;
+  --ink-faint: #7a8994;
+  --ink-invert: #f7f5f0;
+
+  --line: rgba(16, 24, 32, 0.14);
+  --line-strong: rgba(16, 24, 32, 0.3);
+  --grid: rgba(16, 24, 32, 0.05);
+  --grid-strong: rgba(16, 24, 32, 0.09);
+
+  --flow: #0e7c7c;
+  --flow-dim: rgba(14, 124, 124, 0.1);
+  --flow-line: rgba(14, 124, 124, 0.42);
+  --model: #5b4bd6;
+  --model-dim: rgba(91, 75, 214, 0.1);
+  --model-line: rgba(91, 75, 214, 0.4);
+  --warn: #8a5a00;
+  --warn-dim: rgba(138, 90, 0, 0.1);
+  --risk: #b3261e;
+  --risk-dim: rgba(179, 38, 30, 0.09);
+  --ok: #1b7a3d;
+  --ok-dim: rgba(27, 122, 61, 0.1);
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 18px 44px -34px rgba(16, 24, 32, 0.4);
+}
+
+/* Tokens de figura: cada diagrama hereda estos valores */
+:root {
+  --fig-w: 100%;
+  --fig-h: 640px;
+}

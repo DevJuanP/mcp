@@ -1,0 +1,113 @@
+<section
+  class="slide slide--dense s12"
+  data-act="Acto 3 · Arquitectura"
+  data-title="Los tres tipos de mensaje"
+  data-fig="FIG. 12 — EL SOBRE JSON-RPC"
+  data-src="S2 S5"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 3 · Arquitectura</p>
+    <h1>Los tres tipos de mensaje</h1>
+    <p class="lede">
+      Todo el protocolo se reduce a tres sobres. Si entiendes cuándo hay <code class="mono">id</code>
+      y quién responde, entiendes la mecánica completa.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 16px">
+    <div class="cols-3">
+      <div class="msg anim" style="--d: 0ms">
+        <div class="msg__head">
+          <span class="msg__name">Request</span>
+          <span class="msg__req">id · espera respuesta</span>
+        </div>
+        <p class="msg__body">
+          Lleva un <b><code class="mono">id</code></b>, un <b><code class="mono">method</code></b>
+          y <code class="mono">params</code>. El receptor debe contestar con el mismo
+          <code class="mono">id</code>.
+        </p>
+        <div class="code msg__code">
+          <div class="code__head"><span>request.json</span><b>client → server</b></div>
+          <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/list",
+  "params": {
+    "_meta": {
+      "io.modelcontextprotocol/protocolVersion": "2026-07-28"
+    }
+  }
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="msg anim" style="--d: 90ms">
+        <div class="msg__head">
+          <span class="msg__name">Response</span>
+          <span class="msg__req">mismo id · result o error</span>
+        </div>
+        <p class="msg__body">
+          Devuelve el <b>mismo <code class="mono">id</code></b>. Trae <code class="mono">result</code>
+          o <code class="mono">error</code>, nunca los dos. Los resultados actuales incluyen
+          <code class="mono">resultType</code>.
+        </p>
+        <div class="code msg__code">
+          <div class="code__head"><span>response.json</span><b>server → client</b></div>
+          <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "resultType": "complete",
+    "tools": ["…"]
+  }
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="msg msg--notif anim" style="--d: 180ms">
+        <div class="msg__head">
+          <span class="msg__name">Notification</span>
+          <span class="msg__req">sin id · nadie responde</span>
+        </div>
+        <p class="msg__body">
+          No lleva <b><code class="mono">id</code></b>. Es un evento de un solo sentido: cambio
+          de tools, progreso, cancelación. Nadie contesta.
+        </p>
+        <div class="code msg__code">
+          <div class="code__head"><span>notification.json</span><b>server → client</b></div>
+          <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "method": "notifications/tools/list_changed",
+  "params": {
+    "_meta": {
+      "io.modelcontextprotocol/subscriptionId": 4
+    }
+  }
+}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <span class="takeaway__icon">i</span>
+      <span>
+        En 2026-07-28 <b>los servers no inician requests</b>: los requests van del client al
+        server y las responses al revés. Las notifications pueden fluir en ambos sentidos.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Simplifica: request = pregunta con número de ticket; response = respuesta con el mismo
+      ticket; notification = aviso sin ticket. El <code>id</code> es lo que permite tener
+      varias peticiones en vuelo sin mezclar respuestas.
+    </p>
+    <p>
+      La nota del pie es importante para quien leyó la spec vieja: en las versiones anteriores
+      los servers podían iniciar requests (sampling, roots, elicitation). En 2026-07-28 eso
+      se sustituye por el patrón de multi round-trip: el server devuelve
+      <code>input_required</code> y el client reintenta.
+    </p>
+  </aside>
+</section>

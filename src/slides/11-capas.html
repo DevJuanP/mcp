@@ -1,0 +1,88 @@
+<section
+  class="slide s11"
+  data-act="Acto 3 · Arquitectura"
+  data-title="La pila de capas"
+  data-fig="FIG. 11 — DOS CAPAS, UN SOLO MENSAJE"
+  data-src="S2 S6"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 3 · Arquitectura</p>
+    <h1>La pila de capas</h1>
+    <p class="lede">
+      MCP separa qué significan los mensajes de cómo viajan los bytes. La capa de datos es
+      el contrato; la de transporte es la tubería. Cambiar de tubería no cambia el contrato.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="layers">
+      <div class="layers__stack">
+        <div class="layer-outer">
+          <span class="layer-outer__label">Transport layer <span>· cómo viajan los bytes</span></span>
+
+          <div class="layer-inner">
+            <span class="layer-inner__label">Data layer · qué significan los mensajes</span>
+            <div class="layer-item"><span class="layer-item__dot"></span><span><b>JSON-RPC 2.0</b> · requests, responses, notifications</span></div>
+            <div class="layer-item"><span class="layer-item__dot"></span><span><b>Discovery</b> · <code>server/discover</code></span></div>
+            <div class="layer-item"><span class="layer-item__dot"></span><span><b>Primitives</b> · tools, resources, prompts</span></div>
+            <div class="layer-item"><span class="layer-item__dot"></span><span><b>Patterns</b> · progreso, cancelación, subscriptions</span></div>
+          </div>
+
+          <div class="layer-transports">
+            <span class="chip chip--flow">stdio</span>
+            <span class="chip chip--flow">Streamable HTTP</span>
+          </div>
+        </div>
+        <span class="mono-11 faint" style="position: absolute; bottom: 18px; left: 22px">FIG. 11 — capa externa / capa interna</span>
+      </div>
+
+      <div class="layers__copy">
+        <div>
+          <span class="badge badge--flow">La clave</span>
+          <h3 class="mt-12">El mismo JSON funciona sobre cualquier transporte.</h3>
+          <p>
+            La capa de datos define el sobre JSON-RPC, el descubrimiento y las primitivas.
+            La capa de transporte solo mueve bytes, enmarca mensajes y gestiona la conexión.
+          </p>
+        </div>
+
+        <div class="pipe">
+          <div class="pipe__box"><b>Mensaje</b>JSON-RPC</div>
+          <span class="pipe__arrow">→</span>
+          <div class="pipe__box"><b>Transporte</b>stdio / HTTP</div>
+          <span class="pipe__arrow">→</span>
+          <div class="pipe__box"><b>Server</b>misma semántica</div>
+        </div>
+
+        <ul class="list list--compact">
+          <li><b>Data layer:</b> JSON-RPC 2.0, descubrimiento, primitivas y notificaciones.</li>
+          <li><b>Transport layer:</b> establecimiento de conexión, framing y auth.</li>
+          <li><b>Regla práctica:</b> si cambias el transporte, el payload no se toca.</li>
+        </ul>
+
+        <div class="takeaway takeaway--warn">
+          <span class="takeaway__icon">!</span>
+          <span>
+            El transporte no cambia la semántica. Si un mensaje funciona en <code>stdio</code>,
+            el mismo mensaje funciona en Streamable HTTP.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Esta separación es la que permite que el mismo server funcione local y remoto. La capa
+      de datos no sabe si los bytes van por una pipe o por un POST HTTP.
+    </p>
+    <p>
+      Para la audiencia de microservicios, la analogía es clara: es como separar el contrato
+      (Protobuf, JSON Schema) del transporte (gRPC, HTTP). El contrato sobrevive al transporte.
+    </p>
+    <p>
+      La slide 19 entra en los dos transportes. Aquí basta con que quede la separación
+      conceptual.
+    </p>
+  </aside>
+</section>

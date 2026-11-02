@@ -1,0 +1,111 @@
+<section
+  class="slide s19"
+  data-act="Acto 5 · El flujo real"
+  data-title="Los dos transportes"
+  data-fig="FIG. 19 — LA MISMA SEMÁNTICA, DOS TUBERÍAS"
+  data-src="S6 S9"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 5 · El flujo real</p>
+    <h1>Los dos transportes</h1>
+    <p class="lede">
+      El mensaje JSON-RPC es idéntico; cambia cómo se enmarca y cómo viaja. <code class="mono">stdio</code>
+      es un proceso local; Streamable HTTP es un endpoint remoto.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 16px">
+    <div class="cols-2" style="height: auto">
+      <div class="transport transport--stdio">
+        <div class="transport__head">
+          <span class="transport__name">stdio</span>
+          <span class="transport__sub">local · subprocess</span>
+        </div>
+        <p style="margin: 0; color: var(--ink-dim); font-size: 18px">
+          El host lanza el server como un proceso hijo y habla por sus streams estándar.
+        </p>
+
+        <div class="transport__diagram">
+          <div class="transport__box"><b>Host</b>client</div>
+          <span class="transport__arrow">→</span>
+          <div class="transport__box"><b>stdin / stdout</b>JSON por líneas</div>
+          <span class="transport__arrow">→</span>
+          <div class="transport__box"><b>Server</b>subproceso</div>
+        </div>
+
+        <ul class="list list--compact">
+          <li><b>Un proceso por conexión.</b> Si el proceso muere, la conexión muere.</li>
+          <li><b>Sin red.</b> No hay TLS ni OAuth: las credenciales salen del entorno.</li>
+          <li><b>Framing por saltos de línea.</b> Un objeto JSON por línea, sin logs en stdout.</li>
+          <li><b>Un client por proceso.</b> El aislamiento es del sistema operativo.</li>
+        </ul>
+
+        <div class="transport__use">
+          <b>Cuándo usarlo:</b> filesystem, git, bases de datos locales, herramientas de
+          escritorio y cualquier server que deba vivir en la máquina del usuario.
+        </div>
+      </div>
+
+      <div class="transport transport--http">
+        <div class="transport__head">
+          <span class="transport__name">Streamable HTTP</span>
+          <span class="transport__sub">remoto · request-scoped</span>
+        </div>
+        <p style="margin: 0; color: var(--ink-dim); font-size: 18px">
+          Cada mensaje es un POST a un único endpoint MCP. La respuesta llega como JSON o como
+          un stream SSE ligado a esa request.
+        </p>
+
+        <div class="transport__diagram">
+          <div class="transport__box"><b>Client</b>POST /mcp</div>
+          <span class="transport__arrow">→</span>
+          <div class="transport__box"><b>Server</b>endpoint único</div>
+          <span class="transport__arrow">→</span>
+          <div class="transport__box"><b>Respuesta</b>JSON o SSE</div>
+        </div>
+
+        <ul class="list list--compact">
+          <li><b>Sin sesiones.</b> No hay <code>Mcp-Session-Id</code>; cada POST es autosuficiente.</li>
+          <li><b>SSE por request.</b> El stream vive lo que vive la petición, no la conexión.</li>
+          <li><b>OAuth 2.1</b> para remoto; headers <code>Mcp-Method</code> y <code>Mcp-Name</code>.</li>
+          <li><b>Sin reanudación.</b> Si el stream se corta, el client reemite la request.</li>
+        </ul>
+
+        <div class="transport__use">
+          <b>Cuándo usarlo:</b> SaaS, multi-tenant, serverless, integraciones detrás de un
+          API Gateway y cualquier server que muchos hosts deban alcanzar por red.
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway takeaway--warn">
+      <span class="takeaway__icon">!</span>
+      <span>
+        <b>HTTP+SSE está deprecado</b> desde 2025-03-26 y sigue en la lista de deprecaciones.
+        Si ves dos endpoints —uno para SSE y otro para mensajes— es la generación anterior.
+        Migra a Streamable HTTP: un solo endpoint y un POST por mensaje.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      La regla práctica: si el server corre en la máquina del usuario, <code>stdio</code>. Si
+      corre en infraestructura compartida, Streamable HTTP. No hay un tercero activo.
+    </p>
+    <p>
+      <strong>stdio no es “menos seguro” por no tener OAuth.</strong> Es otro modelo de
+      confianza: el usuario ya ejecutó el binario, así que el binario tiene sus permisos. La
+      seguridad aquí es revisar qué instalas, no autenticar cada mensaje.
+    </p>
+    <p>
+      En Streamable HTTP, el detalle nuevo es que el SSE ya no es un canal global: es la
+      respuesta de una request concreta. Eso elimina la reanudación con <code>Last-Event-ID</code>
+      y simplifica el balanceo.
+    </p>
+    <p>
+      Si alguien menciona “SSE transport” como si fuera el estándar, está en 2024-11-05 o en
+      2025-03-26. La versión actual usa Streamable HTTP.
+    </p>
+  </aside>
+</section>

@@ -1,0 +1,113 @@
+<section
+  class="slide slide--dense s21"
+  data-act="Acto 6 · Seguridad y cierre"
+  data-title="Los riesgos reales"
+  data-fig="FIG. 21 — CUATRO VECTORES DOCUMENTADOS"
+  data-src="S7"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 6 · Seguridad y cierre</p>
+    <h1>Los riesgos reales</h1>
+    <p class="lede">
+      MCP conecta un modelo con sistemas que tienen efectos. Eso crea una superficie de
+      ataque nueva. Estos cuatro vectores están documentados en la guía oficial de seguridad.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 16px">
+    <div class="risks">
+      <div class="risk-card">
+        <span class="risk-card__num">01</span>
+        <div>
+          <h3>Prompt injection desde el output de una tool</h3>
+          <p>
+            El resultado de una tool es <b>entrada no confiable</b>. Un documento, una issue
+            o una página web pueden contener instrucciones que el modelo termine siguiendo.
+            No hace falta un usuario malicioso: basta un dato envenenado.
+          </p>
+          <div class="risk-card__fix">
+            <b>Mitigación</b> Trata el output como untrusted, aplica least privilege y pide
+            aprobación humana antes de acciones sensibles. No pongas secretos en el contexto.
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <span class="risk-card__num">02</span>
+        <div>
+          <h3>Confused deputy</h3>
+          <p>
+            Un proxy MCP con más permisos que el client es engañado para actuar en nombre de
+            otro. El server confía en el proxy y el proxy no verifica <b>quién pidió qué</b>.
+          </p>
+          <div class="risk-card__fix">
+            <b>Mitigación</b> Consentimiento por client, tokens con audiencia y scope, y
+            credenciales separadas. No reutilices el token de un client para otro.
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <span class="risk-card__num">03</span>
+        <div>
+          <h3>Token passthrough</h3>
+          <p>
+            El server acepta el token del client y lo reenvía tal cual a una API upstream. El
+            token no fue emitido para esa API: <b>su audiencia no coincide</b> y el upstream no
+            puede distinguir al usuario final.
+          </p>
+          <div class="risk-card__fix">
+            <b>Mitigación</b> Nunca reenvíes el token del client. Haz token exchange o usa
+            credenciales propias del server con el scope mínimo necesario.
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-card">
+        <span class="risk-card__num">04</span>
+        <div>
+          <h3>Servers locales que ejecutan código</h3>
+          <p>
+            Instalar un server local es ejecutar un binario <b>con tus permisos</b>. Puede leer
+            archivos, abrir red y escribir en disco. La cadena de suministro forma parte del
+            modelo de amenaza.
+          </p>
+          <div class="risk-card__fix">
+            <b>Mitigación</b> Instala solo de fuentes confiables, revisa el código, ejecuta en
+            sandbox o contenedor y limita paths y red con allowlists.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway takeaway--risk">
+      <span class="takeaway__icon">!</span>
+      <span>
+        <b>MCP no es una capa de seguridad.</b> Es un contrato de mensajes: la autenticación,
+        la autorización, el aislamiento y la observabilidad se diseñan alrededor, no vienen
+        incluidos.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      No vendas MCP como seguro por diseño. El protocolo define cómo se descubren y se
+      invocan capacidades; no decide qué puede hacer un usuario ni qué datos puede ver.
+    </p>
+    <p>
+      <strong>Prompt injection es el vector que más cambia con MCP</strong> porque el modelo
+      recibe output de sistemas externos. La mitigación no es “un mejor prompt”: es limitar
+      privilegios y exigir aprobación en acciones con efectos.
+    </p>
+    <p>
+      Confused deputy y token passthrough son problemas de arquitectura de auth, no de
+      JSON-RPC. Si tu server es un proxy, la pregunta clave es “¿en nombre de quién actúo y
+      con qué token?”.
+    </p>
+    <p>
+      El cuarto vector es el menos protocolario y el más real para usuarios de desktop:
+      instalar un server es instalar software.
+    </p>
+  </aside>
+</section>

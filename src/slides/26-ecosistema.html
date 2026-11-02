@@ -1,0 +1,98 @@
+<section
+  class="slide s26"
+  data-act="Acto 6 · Seguridad y cierre"
+  data-title="Ecosistema"
+  data-fig="FIG. 26 — SDKS, SERVERS, ADOPCIÓN"
+  data-src="S10 S14"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 6 · Seguridad y cierre</p>
+    <h1>Ecosistema</h1>
+    <p class="lede">
+      El protocolo no vive solo: hay SDKs, servers y hosts. El tier de un SDK mide compromiso
+      de mantenimiento y soporte del protocolo, no la calidad del lenguaje.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="eco">
+      <div class="stack" style="gap: 10px">
+        <div class="sdk-tier sdk-tier--1">
+          <div class="sdk-tier__head"><span>Tier 1 · mantenimiento pleno</span><span>6 SDKs</span></div>
+          <div class="sdk-tier__langs">
+            <span class="sdk-lang">TypeScript</span>
+            <span class="sdk-lang">Python</span>
+            <span class="sdk-lang">C#</span>
+            <span class="sdk-lang">Go</span>
+            <span class="sdk-lang">Rust</span>
+            <span class="sdk-lang">Ruby</span>
+          </div>
+        </div>
+
+        <div class="sdk-tier">
+          <div class="sdk-tier__head"><span>Tier 2</span><span>1 SDK</span></div>
+          <div class="sdk-tier__langs">
+            <span class="sdk-lang">Java</span>
+          </div>
+        </div>
+
+        <div class="sdk-tier">
+          <div class="sdk-tier__head"><span>Tier 3</span><span>3 SDKs</span></div>
+          <div class="sdk-tier__langs">
+            <span class="sdk-lang">Swift</span>
+            <span class="sdk-lang">PHP</span>
+            <span class="sdk-lang">Kotlin</span>
+          </div>
+        </div>
+
+        <div class="panel" style="padding: 16px 18px">
+          <div class="panel__head" style="margin-bottom: 8px"><b>Qué significa el tier</b><span class="badge">S10</span></div>
+          <p style="font-size: 16px">
+            Completitud de features, soporte del protocolo y compromiso de mantenimiento. No es
+            un ranking de popularidad ni una garantía de que el SDK ya soporte 2026-07-28: cada
+            SDK adopta revisiones a su ritmo.
+          </p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <span class="badge badge--warn" style="align-self: flex-start">Adopción citada con fecha</span>
+
+        <div class="stat-card__value mt-20">&gt;10.000 <small>servers públicos</small></div>
+        <p class="stat-card__label">
+          Servers MCP públicos citados cuando MCP se donó a la fundación.
+        </p>
+
+        <hr class="rule" />
+
+        <div class="stat-card__value">97M+ <small>descargas / mes</small></div>
+        <p class="stat-card__label">
+          Descargas mensuales de SDK en el mismo anuncio.
+        </p>
+
+        <div class="stat-card__source">
+          Anthropic · «Donating MCP to the Agentic AI Foundation» · 9 dic 2025.<br />
+          Cifras de ese momento. No se presentan como un dato actual.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Dos cosas que no hay que mezclar: el tier de un SDK y la calidad del lenguaje. Java está
+      en Tier 2 no porque Java sea peor, sino porque el compromiso de mantenimiento y la
+      completitud del SDK son distintos.
+    </p>
+    <p>
+      <strong>Las cifras tienen fecha.</strong> “Más de 10.000 servers” y “97 millones de
+      descargas mensuales” vienen del anuncio de la donación, en diciembre de 2025. En un deck
+      de noviembre de 2026 se citan como historia reciente, no como estado actual.
+    </p>
+    <p>
+      Si alguien pregunta “¿qué SDK elijo?”, la respuesta práctica es: el de tu lenguaje si
+      está en Tier 1; si no, revisa qué revisión del protocolo soporta y si necesitas
+      stateless. El tier no te dice eso.
+    </p>
+  </aside>
+</section>

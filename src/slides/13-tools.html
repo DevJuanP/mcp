@@ -1,0 +1,115 @@
+<section
+  class="slide s13"
+  data-act="Acto 4 · Primitivas"
+  data-title="Tools"
+  data-fig="FIG. 13 — ACCIONES CON CONTRATO"
+  data-src="S2 S3"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 4 · Primitivas · 1 de 3</p>
+    <h1>Tools <span class="thin">— el modelo decide, el host aprueba, el server ejecuta</span></h1>
+    <p class="lede">
+      Una tool es una función con contrato: nombre, descripción, <code class="mono">inputSchema</code>
+      y efectos. El modelo la elige; el server la ejecuta; el host decide si pide permiso.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="prim">
+      <div class="prim__copy">
+        <div class="prim__badge-row">
+          <span class="badge badge--model"><span class="dot"></span> El modelo decide</span>
+          <span class="badge">Con efectos</span>
+          <span class="badge">Consentimiento</span>
+        </div>
+
+        <h2 class="prim__h">Tools <span>· acciones</span></h2>
+
+        <p class="prim__p">
+          Funciones que el modelo puede invocar. Pueden <strong>escribir en una base de datos,
+          llamar a una API, modificar archivos o disparar lógica</strong>. Tienen efectos, y por
+          eso el host puede exigir aprobación.
+        </p>
+        <p class="prim__p">
+          Cada tool declara un <code class="mono">inputSchema</code> en JSON Schema. El server
+          valida los argumentos y devuelve contenido tipado.
+        </p>
+
+        <div class="methods">
+          <span class="tag tag--model">tools/list</span>
+          <span class="tag tag--model">tools/call</span>
+          <span class="tag">inputSchema · JSON Schema</span>
+        </div>
+
+        <div class="prim__control">
+          <div class="prim__control-step">
+            <b class="model">Modelo</b>
+            <span>elige la tool</span>
+          </div>
+          <span class="prim__control-arrow">→</span>
+          <div class="prim__control-step">
+            <b class="warn">Host</b>
+            <span>pide permiso</span>
+          </div>
+          <span class="prim__control-arrow">→</span>
+          <div class="prim__control-step">
+            <b class="flow">Server</b>
+            <span>ejecuta</span>
+          </div>
+        </div>
+
+        <p class="code-note" style="margin-top: 16px">
+          El protocolo no impone la UI de aprobación: el host puede mostrar un diálogo por
+          ejecución, preaprobar operaciones seguras o registrar actividad. La decisión es del host.
+        </p>
+      </div>
+
+      <div class="prim__code">
+        <div class="code" style="height: 100%">
+          <div class="code__head"><span>tools/list · response</span><b>weather_current</b></div>
+          <pre><code data-lang="json">{
+  "name": "weather_current",
+  "title": "Weather Information",
+  "description": "Get current weather information for any location worldwide",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "location": {
+        "type": "string",
+        "description": "City name, address, or coordinates"
+      },
+      "units": {
+        "type": "string",
+        "enum": ["metric", "imperial", "kelvin"],
+        "default": "metric"
+      }
+    },
+    "required": ["location"]
+  }
+}</code></pre>
+        </div>
+        <p class="code-note">
+          El modelo ve nombre, descripción y schema. No ve tu implementación. La descripción
+          es parte del contrato: un schema perfecto con una descripción mala produce malas llamadas.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Tools es la primitiva que la gente suele confundir con “MCP entero”. No lo es: es una
+      de las tres. La característica definitoria es que <strong>las controla el modelo</strong>:
+      él decide cuándo llamar, con qué argumentos, y puede encadenar varias.
+    </p>
+    <p>
+      El consentimiento no es un detalle de UI: es la frontera de seguridad. Una tool puede
+      borrar un archivo o enviar un mensaje. El protocolo permite que el host muestre la
+      llamada, la apruebe o la bloquee antes de que salga.
+    </p>
+    <p>
+      Remarca que <code>inputSchema</code> es JSON Schema: la validación es real, no una
+      sugerencia en prosa.
+    </p>
+  </aside>
+</section>

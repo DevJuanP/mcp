@@ -1,0 +1,131 @@
+/* ============================================================
+   print.css — una slide por página, tema paper, sin chrome
+   ============================================================ */
+
+.notes {
+  display: none !important;
+}
+
+@media print {
+  @page {
+    size: 1920px 1080px;
+    margin: 0;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  /* Forzar el tema paper al imprimir: ahorra tinta y garantiza contraste */
+  html[data-theme] {
+    --bg: #f7f5f0 !important;
+    --bg-elev: #ffffff !important;
+    --bg-elev-2: #efece4 !important;
+    --bg-inset: #efece4 !important;
+    --ink: #101820 !important;
+    --ink-dim: #4e5d68 !important;
+    --ink-faint: #6d7b86 !important;
+    --ink-invert: #f7f5f0 !important;
+    --line: rgba(16, 24, 32, 0.16) !important;
+    --line-strong: rgba(16, 24, 32, 0.32) !important;
+    --grid: rgba(16, 24, 32, 0.05) !important;
+    --flow: #0e7c7c !important;
+    --flow-dim: rgba(14, 124, 124, 0.1) !important;
+    --flow-line: rgba(14, 124, 124, 0.42) !important;
+    --model: #5b4bd6 !important;
+    --model-dim: rgba(91, 75, 214, 0.1) !important;
+    --model-line: rgba(91, 75, 214, 0.4) !important;
+    --warn: #8a5a00 !important;
+    --warn-dim: rgba(138, 90, 0, 0.1) !important;
+    --risk: #b3261e !important;
+    --risk-dim: rgba(179, 38, 30, 0.09) !important;
+    --ok: #1b7a3d !important;
+    --ok-dim: rgba(27, 122, 61, 0.1) !important;
+    --shadow-card: none !important;
+  }
+
+  html,
+  body {
+    width: auto;
+    height: auto;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .deck {
+    position: static;
+    display: block;
+    padding: 0;
+    overflow: visible;
+    background: #ffffff;
+  }
+
+  .stage {
+    position: static;
+    width: auto;
+    height: auto;
+    transform: none !important;
+  }
+
+  .slides {
+    position: static;
+  }
+
+  .slide {
+    position: relative !important;
+    display: flex !important;
+    width: 1920px;
+    height: 1080px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    break-after: page;
+    page-break-after: always;
+    break-inside: avoid;
+    transform: none !important;
+  }
+
+  .slide:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .chrome,
+  .progress,
+  .overlay,
+  .notes {
+    display: none !important;
+  }
+
+  .draw {
+    stroke-dashoffset: 0 !important;
+  }
+
+  .anim,
+  .anim-fade,
+  .pulse-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .s06 .wall__hub {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+  }
+
+  .s06.is-solved .wall__wire--n {
+    opacity: 0.08 !important;
+  }
+
+  .s06 .wall__wire--mcp {
+    opacity: 0.95 !important;
+  }
+}

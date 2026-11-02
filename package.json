@@ -1,0 +1,15 @@
+{
+  "name": "mcp-presentacion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Deck interactivo sobre el Model Context Protocol (spec 2026-07-28)",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "serve": "node build.mjs && npx --yes serve dist"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

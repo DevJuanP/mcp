@@ -1,0 +1,116 @@
+<section
+  class="slide s03"
+  data-act="Acto 1 · El problema"
+  data-title="Qué sabe y qué no sabe un LLM"
+  data-fig="FIG. 03 — DENTRO Y FUERA DEL CONTEXT WINDOW"
+  data-src="S2 S13"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 1 · El problema</p>
+    <h1>Qué sabe y qué no sabe un LLM</h1>
+    <p class="lede">
+      El modelo no está roto: está aislado. Todo lo que sabe del mundo está dentro de una
+      ventana que se abre en cada llamada y se cierra cuando termina.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column">
+    <div class="llm-grid" style="flex: 1; height: auto; min-height: 0">
+      <div class="llm-panel llm-panel--yes anim" style="--d: 0ms">
+        <span class="llm-panel__ghost" aria-hidden="true">SÍ</span>
+        <h3>Lo que sí hace</h3>
+        <p class="llm-panel__sub">Dentro del context window</p>
+
+        <div class="llm-item">
+          <span class="llm-item__icon">01</span>
+          <p class="llm-item__text">
+            <b>Predice el siguiente token</b>, uno a uno. Todo lo demás —razonar, resumir,
+            escribir código— se apoya en esa operación.
+          </p>
+        </div>
+        <div class="llm-item">
+          <span class="llm-item__icon">02</span>
+          <p class="llm-item__text">
+            <b>Razona sobre lo que ya está en el contexto</b>: tu prompt, el historial, los
+            documentos y los resultados que la aplicación le pasa.
+          </p>
+        </div>
+        <div class="llm-item">
+          <span class="llm-item__icon">03</span>
+          <p class="llm-item__text">
+            <b>Sigue instrucciones y emite JSON estructurado</b>, incluido un tool call con
+            nombre y argumentos.
+          </p>
+        </div>
+
+        <div class="mt-20">
+          <div class="context-bar" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <p class="mono-11 faint mt-8">context window · todo lo que el modelo puede ver en esta llamada</p>
+        </div>
+      </div>
+
+      <div class="llm-panel llm-panel--no anim" style="--d: 120ms">
+        <span class="llm-panel__ghost" aria-hidden="true">NO</span>
+        <h3>Lo que no hace</h3>
+        <p class="llm-panel__sub">Fuera del context window</p>
+
+        <div class="llm-item">
+          <span class="llm-item__icon">01</span>
+          <p class="llm-item__text">
+            <b>No sabe nada posterior a su corte de entrenamiento.</b> El mundo cambió y
+            sus pesos no.
+          </p>
+        </div>
+        <div class="llm-item">
+          <span class="llm-item__icon">02</span>
+          <p class="llm-item__text">
+            <b>No ejecuta código, no consulta una base de datos, no llama a tu API.</b>
+            Solo produce texto —o una intención de llamada— que otra pieza debe ejecutar.
+          </p>
+        </div>
+        <div class="llm-item">
+          <span class="llm-item__icon">03</span>
+          <p class="llm-item__text">
+            <b>No conoce tus sistemas, tus permisos ni tus datos privados.</b> Si no están
+            en el contexto, no existen para él.
+          </p>
+        </div>
+
+        <div class="mt-20" style="padding: 14px 16px; border: 1px dashed var(--line-strong); border-radius: 3px">
+          <p class="mono-11 faint mb-0" style="margin: 0">
+            El corte de entrenamiento y la falta de acceso no son un bug del modelo:
+            son su condición de funcionamiento.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway mt-20">
+      <span class="takeaway__icon">→</span>
+      <span>
+        <b>MCP no hace al modelo más listo.</b> Le abre puertos hacia lo que ya existe
+        fuera de la ventana: datos, tools y workflows.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Este es el encuadre que hace clic: el LLM es una función pura sobre su contexto. No
+      tiene efectos secundarios. No puede consultar nada. Si quieres que use el clima de
+      Barcelona de hoy, alguien tiene que meterlo en el contexto.
+    </p>
+    <p>
+      <strong>El problema no es la inteligencia; es el aislamiento.</strong> MCP no cambia
+      el modelo, cambia lo que el host puede poner a su disposición.
+    </p>
+    <p>
+      Ojo con la frase “el modelo no ejecuta nada”: es literal. En la slide 04 se ve por
+      qué function calling tampoco lo cambia.
+    </p>
+  </aside>
+</section>

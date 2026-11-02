@@ -1,0 +1,109 @@
+<section
+  class="slide slide--cover"
+  data-act="Apertura"
+  data-title="Portada"
+  data-src="S1"
+>
+  <div class="cover">
+    <div class="cover__copy">
+      <p class="cover__eyebrow">Model Context Protocol · spec 2026-07-28</p>
+      <h1>MCP: el protocolo que le pone <span class="accent">puertos</span> a la IA</h1>
+      <p class="cover__sub">
+        Qué es, qué problema resuelve y cómo funciona por dentro.
+        <strong>Sin explicar qué es una API ni qué es un LLM</strong>: eso ya lo sabes.
+        Aquí se explica cómo encajan.
+      </p>
+      <div class="cover__meta">
+        <span>Deck técnico · <b>27 slides</b></span>
+        <span>Duración estimada · <b>≈ 50 min</b></span>
+        <span>Versión explicada · <b>2026-07-28</b></span>
+        <span>Sin conexión · <b>un solo archivo</b></span>
+      </div>
+    </div>
+
+    <div class="cover__visual" aria-hidden="true">
+      <svg class="dg" viewBox="0 0 760 760">
+        <defs>
+          <linearGradient id="pinGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="var(--flow)" stop-opacity="0.95" />
+            <stop offset="1" stop-color="var(--flow)" stop-opacity="0.35" />
+          </linearGradient>
+        </defs>
+
+        <circle cx="380" cy="390" r="290" class="st-line" stroke-dasharray="2 9" opacity="0.5" />
+        <line x1="90" y1="390" x2="670" y2="390" class="st-line" opacity="0.18" />
+        <line x1="380" y1="90" x2="380" y2="690" class="st-line" opacity="0.18" />
+
+        <rect x="120" y="300" width="520" height="176" rx="38" class="fl-elev st-flow" stroke-width="1.6" />
+        <rect x="160" y="342" width="440" height="92" rx="20" class="fl-inset st-line" />
+
+        <g>
+          <rect x="178" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" />
+          <rect x="208" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.9" />
+          <rect x="238" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.8" />
+          <rect x="268" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.7" />
+          <rect x="298" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.6" />
+          <rect x="328" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.5" />
+          <rect x="358" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.45" />
+          <rect x="388" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.5" />
+          <rect x="418" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.6" />
+          <rect x="448" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.7" />
+          <rect x="478" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.8" />
+          <rect x="508" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" opacity="0.9" />
+          <rect x="538" y="362" width="14" height="52" rx="3" fill="url(#pinGrad)" />
+        </g>
+
+        <text x="380" y="530" text-anchor="middle" class="mono tx-flow" style="font-size: 26px; letter-spacing: 0.42em">MCP</text>
+
+        <line x1="120" y1="238" x2="640" y2="238" class="st-line" />
+        <line x1="120" y1="228" x2="120" y2="248" class="st-line" />
+        <line x1="640" y1="228" x2="640" y2="248" class="st-line" />
+        <text x="380" y="222" text-anchor="middle" class="mono tx-faint" style="font-size: 10px; letter-spacing: 0.18em">UN CONECTOR · MUCHOS DESTINOS</text>
+
+        <g class="mono" style="font-size: 11px">
+          <line x1="238" y1="362" x2="150" y2="180" class="st-line" />
+          <text x="86" y="172" class="tx-flow">JSON-RPC 2.0</text>
+          <line x1="380" y1="342" x2="380" y2="180" class="st-line" />
+          <text x="380" y="172" text-anchor="middle" class="tx-flow">tools</text>
+          <line x1="522" y1="362" x2="610" y2="180" class="st-line" />
+          <text x="674" y="172" text-anchor="end" class="tx-flow">resources</text>
+          <line x1="238" y1="414" x2="150" y2="600" class="st-line" />
+          <text x="86" y="622" class="tx-dim">prompts</text>
+          <line x1="380" y1="434" x2="380" y2="600" class="st-line" />
+          <text x="380" y="622" text-anchor="middle" class="tx-dim">transport</text>
+          <line x1="522" y1="414" x2="610" y2="600" class="st-line" />
+          <text x="674" y="622" text-anchor="end" class="tx-dim">auth</text>
+        </g>
+
+        <g class="st-line">
+          <circle cx="238" cy="362" r="3" class="fl-flow" />
+          <circle cx="380" cy="342" r="3" class="fl-flow" />
+          <circle cx="522" cy="362" r="3" class="fl-flow" />
+          <circle cx="238" cy="414" r="3" class="fl-flow" />
+          <circle cx="380" cy="434" r="3" class="fl-flow" />
+          <circle cx="522" cy="414" r="3" class="fl-flow" />
+        </g>
+
+        <path d="M96 96 h28 M96 96 v28" class="st-flow" />
+        <path d="M664 96 h-28 M664 96 v28" class="st-flow" />
+        <path d="M96 684 h28 M96 684 v-28" class="st-flow" />
+        <path d="M664 684 h-28 M664 684 v-28" class="st-flow" />
+      </svg>
+      <span class="cover__caption">FIG. 01 — EL PUERTO, EN CORTE</span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Abre con la promesa del deck: al final, MCP tiene que quedar como una pieza de
+      arquitectura, no como una sigla más. La persona que escucha ya sabe qué es un LLM,
+      una API REST y un API Gateway; el hueco que falta es el contrato que conecta todo eso.
+    </p>
+    <p>
+      Avisa de la versión desde el minuto cero: <strong>2026-07-28</strong>. Mucho material
+      que hay en internet describe la versión anterior, con handshake. Esa es la fuente
+      principal de confusión y el deck la va a señalar explícitamente.
+    </p>
+    <p>Duración objetivo: 50 minutos. La slide 02 permite saltar por actos.</p>
+  </aside>
+</section>

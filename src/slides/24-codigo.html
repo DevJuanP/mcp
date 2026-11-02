@@ -1,0 +1,111 @@
+<section
+  class="slide s24"
+  data-act="Acto 6 · Seguridad y cierre"
+  data-title="El código"
+  data-fig="FIG. 24 — UN SERVER MÍNIMO, REAL"
+  data-src="S11"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 6 · Seguridad y cierre</p>
+    <h1>El código <span class="thin">— un server mínimo, real</span></h1>
+    <p class="lede">
+      El quickstart oficial de TypeScript, recortado. Lo importante no es memorizarlo: es ver
+      dónde vive el contrato y dónde empieza tu implementación.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="split-wide">
+      <div class="codewrap">
+        <div class="code code--sm" style="height: 100%">
+          <div class="code__head"><span>src/index.ts</span><b>@modelcontextprotocol/server</b></div>
+          <pre><code data-lang="ts">import { McpServer } from "@modelcontextprotocol/server";
+import { serveStdio } from "@modelcontextprotocol/server/stdio";
+import { z } from "zod";
+
+// serveStdio llama a esta factory cada vez que necesita una instancia
+function createServer() {
+  const server = new McpServer({
+    name: "weather",
+    version: "1.0.0",
+  });
+
+  server.registerTool(
+    "get_alerts",
+    {
+      description: "Get weather alerts for a state",
+      inputSchema: z.object({
+        state: z.string().length(2).describe("Two-letter state code"),
+      }),
+    },
+    async ({ state }) => {
+      const text = await fetchAlerts(state); // tu implementación
+      return { content: [{ type: "text", text }] };
+    },
+  );
+
+  return server;
+}
+
+serveStdio(createServer, {
+  onerror: (error) => console.error("Weather error:", error),
+});</code></pre>
+        </div>
+        <p class="code-note">
+          Recortado del quickstart oficial. El handler real consulta la API del NWS; aquí se
+          sustituye por <span class="mono">fetchAlerts</span> para que quepa.
+        </p>
+      </div>
+
+      <div class="code-anatomy">
+        <div class="anatomy">
+          <span class="anatomy__key">McpServer</span>
+          <p><b>Instancia aislada.</b> <code>serveStdio</code> llama a la factory cada vez que necesita un server.</p>
+        </div>
+        <div class="anatomy">
+          <span class="anatomy__key">registerTool</span>
+          <p><b>El contrato.</b> Nombre, description e <code>inputSchema</code>. Zod genera el JSON Schema que verá el modelo.</p>
+        </div>
+        <div class="anatomy">
+          <span class="anatomy__key">handler</span>
+          <p><b>Tu código.</b> Recibe argumentos validados y devuelve <code>content[]</code>; los errores de negocio van como contenido.</p>
+        </div>
+        <div class="anatomy">
+          <span class="anatomy__key">serveStdio</span>
+          <p><b>La negociación.</b> Atiende <code>server/discover</code> y mantiene compatibilidad con clients 2025.</p>
+        </div>
+        <div class="anatomy">
+          <span class="anatomy__key">stderr</span>
+          <p><b>La regla de oro.</b> Nunca <code>console.log</code>: stdout es el canal JSON-RPC. Usa <code>console.error</code>.</p>
+        </div>
+
+        <div class="panel panel--warn" style="padding: 14px 16px">
+          <p style="font-size: 15px; margin: 0">
+            <b>Ojo:</b> <code class="mono">server.connect(new StdioServerTransport())</code>
+            compila, pero solo sirve a clients legacy. Para hablar 2026-07-28 y 2025, usa
+            <code class="mono">serveStdio</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Este código es real y está recortado del quickstart. La fábrica <code>createServer</code>
+      no es un capricho: <code>serveStdio</code> la llama para cada instancia, incluida una
+      sonda de <code>server/discover</code> que se descarta si el client cae a
+      <code>initialize</code>.
+    </p>
+    <p>
+      <strong>La parte que más se olvida:</strong> en stdio, un <code>console.log</code>
+      escribe en el mismo canal que los mensajes JSON-RPC y rompe el server. Todos los
+      ejemplos oficiales insisten en <code>console.error</code>.
+    </p>
+    <p>
+      La distinción entre error de negocio y error de protocolo también importa: si la API
+      externa falla, normalmente devuelves contenido con el error para que el modelo lo lea.
+      Si la llamada está mal formada, devuelves un error JSON-RPC.
+    </p>
+  </aside>
+</section>

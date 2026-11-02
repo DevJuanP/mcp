@@ -1,0 +1,245 @@
+<section
+  class="slide slide--dense s17"
+  data-act="Acto 5 · El flujo real"
+  data-title="Una llamada, paso a paso"
+  data-fig="FIG. 17 — SEIS PASOS, UN RESULTADO"
+  data-src="S2 S3"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 5 · El flujo real</p>
+    <h1>Una llamada, paso a paso</h1>
+    <p class="lede">
+      Del descubrimiento a la respuesta final. Los pasos 3 y 6 ocurren dentro del host y
+      <strong>no son MCP</strong>; los otros cuatro sí cruzan el protocolo.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="actor-rail" aria-hidden="true">
+      <span class="actor-rail__line"></span>
+      <div class="actor" data-actor><span class="actor__dot">01</span><span>Usuario</span></div>
+      <div class="actor" data-actor><span class="actor__dot">02</span><span>Host</span></div>
+      <div class="actor" data-actor><span class="actor__dot">03</span><span>Client</span></div>
+      <div class="actor" data-actor><span class="actor__dot">04</span><span>Server</span></div>
+      <div class="actor" data-actor><span class="actor__dot">05</span><span>Sistema</span></div>
+      <span class="actor-rail__pulse" data-pulse></span>
+    </div>
+
+    <div class="stepper" style="position: relative">
+      <div class="steps" role="tablist" aria-label="Pasos de una llamada MCP" aria-orientation="vertical">
+        <button class="step-btn" type="button" role="tab" id="s17-tab-1" aria-controls="s17-panel-1" aria-selected="true">
+          <span class="step-btn__num">1</span>
+          <span><span class="step-btn__title">Descubrir</span><span class="step-btn__sub">server/discover</span></span>
+        </button>
+        <button class="step-btn" type="button" role="tab" id="s17-tab-2" aria-controls="s17-panel-2" aria-selected="false" tabindex="-1">
+          <span class="step-btn__num">2</span>
+          <span><span class="step-btn__title">Listar las tools</span><span class="step-btn__sub">tools/list</span></span>
+        </button>
+        <button class="step-btn" type="button" role="tab" id="s17-tab-3" aria-controls="s17-panel-3" aria-selected="false" tabindex="-1">
+          <span class="step-btn__num">3</span>
+          <span><span class="step-btn__title">Decidir</span><span class="step-btn__sub">dentro del host</span></span>
+        </button>
+        <button class="step-btn" type="button" role="tab" id="s17-tab-4" aria-controls="s17-panel-4" aria-selected="false" tabindex="-1">
+          <span class="step-btn__num">4</span>
+          <span><span class="step-btn__title">Invocar</span><span class="step-btn__sub">tools/call</span></span>
+        </button>
+        <button class="step-btn" type="button" role="tab" id="s17-tab-5" aria-controls="s17-panel-5" aria-selected="false" tabindex="-1">
+          <span class="step-btn__num">5</span>
+          <span><span class="step-btn__title">Recibir</span><span class="step-btn__sub">response</span></span>
+        </button>
+        <button class="step-btn" type="button" role="tab" id="s17-tab-6" aria-controls="s17-panel-6" aria-selected="false" tabindex="-1">
+          <span class="step-btn__num">6</span>
+          <span><span class="step-btn__title">Responder</span><span class="step-btn__sub">dentro del host</span></span>
+        </button>
+      </div>
+
+      <div class="payload">
+        <div class="payload__head">
+          <b data-payload-label>server/discover</b>
+          <span data-payload-note>request + response</span>
+        </div>
+
+        <div class="payload__panel is-active" role="tabpanel" id="s17-panel-1" aria-labelledby="s17-tab-1">
+          <div class="payload__split">
+            <div class="payload__col">
+              <span class="payload__col-label">request · client → server</span>
+              <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "id": "d-1",
+  "method": "server/discover",
+  "params": {
+    "_meta": {
+      "io.modelcontextprotocol/protocolVersion": "2026-07-28",
+      "io.modelcontextprotocol/clientCapabilities": {}
+    }
+  }
+}</code></pre>
+            </div>
+            <div class="payload__col">
+              <span class="payload__col-label">response · server → client</span>
+              <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "id": "d-1",
+  "result": {
+    "resultType": "complete",
+    "supportedVersions": ["2026-07-28"],
+    "capabilities": {
+      "tools": {},
+      "resources": {}
+    },
+    "_meta": {
+      "io.modelcontextprotocol/serverInfo": {
+        "name": "weather",
+        "version": "1.0.0"
+      }
+    }
+  }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="payload__panel" role="tabpanel" id="s17-panel-2" aria-labelledby="s17-tab-2">
+          <div class="payload__split">
+            <div class="payload__col">
+              <span class="payload__col-label">request</span>
+              <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/list",
+  "params": {
+    "_meta": {
+      "io.modelcontextprotocol/protocolVersion": "2026-07-28",
+      "io.modelcontextprotocol/clientCapabilities": {}
+    }
+  }
+}</code></pre>
+            </div>
+            <div class="payload__col">
+              <span class="payload__col-label">response · resumida</span>
+              <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "id": 2,
+  "result": {
+    "resultType": "complete",
+    "tools": [
+      {
+        "name": "get_forecast",
+        "title": "Weather Forecast",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" }
+          },
+          "required": ["latitude", "longitude"]
+        }
+      }
+    ],
+    "ttlMs": 300000,
+    "cacheScope": "public"
+  }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="payload__panel" role="tabpanel" id="s17-panel-3" aria-labelledby="s17-tab-3">
+          <div class="bubble">
+            El modelo lee la lista y elige <strong>get_forecast</strong> con
+            <span class="mono">latitude: 41.39</span> y
+            <span class="mono">longitude: 2.17</span>. Es una decisión del modelo dentro
+            del host: en este paso no viaja ningún mensaje MCP.
+          </div>
+          <div class="not-mcp">
+            <b>No es MCP.</b> El host construye el prompt con las tools que decide exponer.
+            Si una tool no está en ese contexto, para el modelo no existe. El descubrimiento
+            MCP no es descubrimiento del modelo: el host filtra y ordena.
+          </div>
+        </div>
+
+        <div class="payload__panel" role="tabpanel" id="s17-panel-4" aria-labelledby="s17-tab-4">
+          <div class="payload__col">
+            <span class="payload__col-label">request · el host ejecuta la intención del modelo</span>
+            <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "tools/call",
+  "params": {
+    "name": "get_forecast",
+    "arguments": {
+      "latitude": 41.39,
+      "longitude": 2.17
+    },
+    "_meta": {
+      "io.modelcontextprotocol/protocolVersion": "2026-07-28",
+      "io.modelcontextprotocol/clientCapabilities": {}
+    }
+  }
+}</code></pre>
+          </div>
+          <div class="not-mcp">
+            <b>El argumento no viaja solo.</b> El client valida el schema y el host puede
+            pedir aprobación antes de enviar. La tool se ejecuta en el server, no en el modelo.
+          </div>
+        </div>
+
+        <div class="payload__panel" role="tabpanel" id="s17-panel-5" aria-labelledby="s17-tab-5">
+          <div class="payload__col">
+            <span class="payload__col-label">response · server → client</span>
+            <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "id": 3,
+  "result": {
+    "resultType": "complete",
+    "content": [
+      {
+        "type": "text",
+        "text": "Barcelona: 24 °C, despejado. Mañana, 22 °C."
+      }
+    ]
+  }
+}</code></pre>
+          </div>
+          <div class="not-mcp">
+            <b>El resultado es contenido, no una verdad.</b> El server devuelve texto
+            estructurado; el host decide cuánto de eso entra en el contexto y cómo se presenta.
+          </div>
+        </div>
+
+        <div class="payload__panel" role="tabpanel" id="s17-panel-6" aria-labelledby="s17-tab-6">
+          <div class="bubble">
+            El host añade el resultado al contexto y el modelo redacta la respuesta final:
+            «Mañana en Barcelona hará 22 °C y no hay alertas activas». El usuario la lee en
+            la UI del host.
+          </div>
+          <div class="not-mcp">
+            <b>Tampoco es MCP.</b> MCP termina en el resultado de la tool. Lo que el modelo
+            haga con él —resumir, citar, combinar con otros datos— es responsabilidad del host.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Recorre los seis pasos con click. El objetivo no es memorizar los payloads: es ver
+      dónde hay un mensaje MCP y dónde no. Los pasos 3 y 6 son los que más se confunden.
+    </p>
+    <p>
+      <strong>Paso 1:</strong> <code>server/discover</code> es obligatorio en el server, pero
+      opcional para el client. Sirve para saber versiones y capacidades antes de pedir nada.
+      En stdio también funciona como sonda de compatibilidad con clients legacy.
+    </p>
+    <p>
+      <strong>Paso 4:</strong> el host no “pasa” la llamada del modelo tal cual. Valida
+      argumentos, aplica permisos y puede bloquear. La tool se ejecuta en el server.
+    </p>
+    <p>
+      <strong>Paso 5:</strong> el resultado vuelve como <code>content</code>. A partir de
+      ahí, el host decide qué hacer con él. Esa frontera es la que separa el protocolo de la
+      aplicación.
+    </p>
+  </aside>
+</section>

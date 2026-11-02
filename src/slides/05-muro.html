@@ -1,0 +1,82 @@
+<section
+  class="slide slide--diagram s05"
+  data-act="Acto 1 · El problema"
+  data-title="El muro N×M"
+  data-fig="FIG. 05 — EL MURO N×M"
+  data-src="S13"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 1 · El problema</p>
+    <h1>El muro N×M</h1>
+    <p class="lede">
+      Cuatro apps. Cuatro sistemas. Dieciséis conectores. Cada uno con su auth, su formato,
+      su manejo de errores y su mantenimiento. Y la pared crece en las dos direcciones.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; align-items: center">
+    <div class="wall" aria-hidden="true">
+      <svg class="wall__svg" viewBox="0 0 1600 620">
+        <path pathLength="1" style="--i: 0" class="wall__wire draw" d="M210,192 C640,192 960,192 1390,192" />
+        <path pathLength="1" style="--i: 1" class="wall__wire draw" d="M210,192 C640,192 960,290 1390,290" />
+        <path pathLength="1" style="--i: 2" class="wall__wire draw" d="M210,192 C640,192 960,388 1390,388" />
+        <path pathLength="1" style="--i: 3" class="wall__wire draw" d="M210,192 C640,192 960,486 1390,486" />
+
+        <path pathLength="1" style="--i: 4" class="wall__wire draw" d="M210,290 C640,290 960,192 1390,192" />
+        <path pathLength="1" style="--i: 5" class="wall__wire draw" d="M210,290 C640,290 960,290 1390,290" />
+        <path pathLength="1" style="--i: 6" class="wall__wire draw" d="M210,290 C640,290 960,388 1390,388" />
+        <path pathLength="1" style="--i: 7" class="wall__wire draw" d="M210,290 C640,290 960,486 1390,486" />
+
+        <path pathLength="1" style="--i: 8" class="wall__wire draw" d="M210,388 C640,388 960,192 1390,192" />
+        <path pathLength="1" style="--i: 9" class="wall__wire draw" d="M210,388 C640,388 960,290 1390,290" />
+        <path pathLength="1" style="--i: 10" class="wall__wire draw" d="M210,388 C640,388 960,388 1390,388" />
+        <path pathLength="1" style="--i: 11" class="wall__wire draw" d="M210,388 C640,388 960,486 1390,486" />
+
+        <path pathLength="1" style="--i: 12" class="wall__wire draw" d="M210,486 C640,486 960,192 1390,192" />
+        <path pathLength="1" style="--i: 13" class="wall__wire draw" d="M210,486 C640,486 960,290 1390,290" />
+        <path pathLength="1" style="--i: 14" class="wall__wire draw" d="M210,486 C640,486 960,388 1390,388" />
+        <path pathLength="1" style="--i: 15" class="wall__wire draw" d="M210,486 C640,486 960,486 1390,486" />
+      </svg>
+
+      <div class="wall__col wall__col--left">
+        <span class="wall__label">Apps · 4</span>
+        <div class="wall__node wall__node--app"><b>Claude</b><span>host</span></div>
+        <div class="wall__node wall__node--app"><b>ChatGPT</b><span>host</span></div>
+        <div class="wall__node wall__node--app"><b>Cursor</b><span>host</span></div>
+        <div class="wall__node wall__node--app"><b>VS Code</b><span>host</span></div>
+      </div>
+
+      <div class="wall__hud">
+        <span class="wall__hud-label">El coste del muro</span>
+        <span class="wall__count"><span data-wall-count>0</span><small>conectores</small></span>
+      </div>
+
+      <div class="wall__col wall__col--right">
+        <span class="wall__label">Sistemas · 4</span>
+        <div class="wall__node wall__node--system"><b>GitHub</b><span>API</span></div>
+        <div class="wall__node wall__node--system"><b>Postgres</b><span>base de datos</span></div>
+        <div class="wall__node wall__node--system"><b>Google Drive</b><span>archivos</span></div>
+        <div class="wall__node wall__node--system"><b>Slack</b><span>mensajería</span></div>
+      </div>
+
+      <p class="wall__caption">Cada línea es un conector a medida: auth, schema, errores, tests</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Deja que la animación haga el trabajo. Cada línea que aparece es una integración que
+      alguien tiene que escribir, autenticar y mantener. No son 16 líneas bonitas: son 16
+      contratos con el mundo.
+    </p>
+    <p>
+      El coste no es lineal: es el producto de apps por sistemas. Si mañana entra una app
+      nueva, no sumas una integración; sumas tantas como sistemas tengas. Si entra un
+      sistema nuevo, sumas tantas como apps.
+    </p>
+    <p>
+      <strong>Nada de esto es específico de MCP.</strong> Es el coste normal de integrar
+      software. La pregunta es si un protocolo puede cambiarlo.
+    </p>
+  </aside>
+</section>

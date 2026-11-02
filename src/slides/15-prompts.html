@@ -1,0 +1,133 @@
+<section
+  class="slide s15"
+  data-act="Acto 4 · Primitivas"
+  data-title="Prompts"
+  data-fig="FIG. 15 — PLANTILLAS QUE INVOCA EL USUARIO"
+  data-src="S3"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 4 · Primitivas · 3 de 3</p>
+    <h1>Prompts <span class="thin">— el usuario decide cuándo se usan</span></h1>
+    <p class="lede">
+      Un prompt es una plantilla de mensajes con argumentos que el usuario invoca de forma
+      explícita. El server la define; el host la muestra; el usuario decide cuándo arranca.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="prim">
+      <div class="prim__copy">
+        <div class="prim__badge-row">
+          <span class="badge badge--warn"><span class="dot"></span> El usuario decide</span>
+          <span class="badge">Sin efectos</span>
+          <span class="badge">Argumentos tipados</span>
+        </div>
+
+        <h2 class="prim__h">Prompts <span>· workflows</span></h2>
+
+        <p class="prim__p">
+          Plantillas que el server expone para una tarea concreta: revisar un PR, resumir un
+          hilo, planificar un viaje. El usuario las elige desde la UI —normalmente como
+          <strong>slash commands</strong>— y el server devuelve los mensajes ya armados.
+        </p>
+        <p class="prim__p">
+          Los argumentos son opcionales y declarativos. El host puede pedirlos, validarlos y
+          autocompletarlos con la <strong>completion API</strong> antes de llamar a
+          <code class="mono">prompts/get</code>.
+        </p>
+
+        <div class="methods">
+          <span class="tag tag--warn">prompts/list</span>
+          <span class="tag tag--warn">prompts/get</span>
+          <span class="tag">completion/complete</span>
+          <span class="tag">listChanged</span>
+        </div>
+
+        <div class="prim__control">
+          <div class="prim__control-step">
+            <b class="warn">Usuario</b>
+            <span>elige el prompt</span>
+          </div>
+          <span class="prim__control-arrow">→</span>
+          <div class="prim__control-step">
+            <b>Host</b>
+            <span>pide argumentos</span>
+          </div>
+          <span class="prim__control-arrow">→</span>
+          <div class="prim__control-step">
+            <b class="flow">Server</b>
+            <span>devuelve mensajes</span>
+          </div>
+        </div>
+
+        <p class="code-note" style="margin-top: 16px">
+          El protocolo no impone la UI. Slash commands, menú, botón o atajo: el host decide
+          cómo expone el catálogo de prompts del server.
+        </p>
+      </div>
+
+      <div class="prim__code">
+        <div class="prompt-mock">
+          <div class="prompt-mock__bar">
+            <span class="prompt-mock__dot"></span>
+            <span class="prompt-mock__dot"></span>
+            <span class="prompt-mock__dot"></span>
+            <span class="mono-11 faint" style="margin-left: 8px">host · barra de comandos</span>
+          </div>
+          <div class="prompt-mock__body">
+            <div class="row" style="flex-wrap: wrap; gap: 8px">
+              <span class="slash">/plan-vacation</span>
+              <span class="slash slash--dim">/review-pr</span>
+              <span class="slash slash--dim">/summarize-thread</span>
+            </div>
+            <div class="mt-16">
+              <div class="arg-row"><span>destination</span><b class="flow">Barcelona</b></div>
+              <div class="arg-row"><span>days</span><b>5</b></div>
+              <div class="arg-row"><span>budget</span><b class="dim">— opcional</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="code mt-16" style="min-height: 0">
+          <div class="code__head"><span>prompts/get · response</span><b>plan-vacation</b></div>
+          <pre><code data-lang="json">{
+  "resultType": "complete",
+  "description": "Plan de viaje",
+  "messages": [
+    {
+      "role": "user",
+      "content": {
+        "type": "text",
+        "text": "Planifica 5 días en Barcelona..."
+      }
+    }
+  ]
+}</code></pre>
+        </div>
+
+        <p class="code-note">
+          El server devuelve mensajes completos, no una tool. El host los inyecta en el
+          contexto y el modelo los usa como cualquier otro turno de la conversación.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      El contraste con tools es de control, no de formato. Una tool la elige el modelo; un
+      prompt lo elige el usuario. Si el usuario no lo invoca, el prompt no existe para el
+      modelo, aunque el server lo tenga publicado.
+    </p>
+    <p>
+      <strong>El contenido lo escribe el server, pero el disparador es el usuario.</strong>
+      Esa combinación es la que permite empaquetar workflows: el server sabe cómo se hace
+      una revisión de código en su dominio y el usuario decide cuándo aplicarla.
+    </p>
+    <p>
+      La completion API no es obligatoria. Es una ayuda de UI: el host puede sugerir valores
+      de argumentos consultando al server. Si no la implementas, el usuario escribe los
+      argumentos a mano.
+    </p>
+  </aside>
+</section>

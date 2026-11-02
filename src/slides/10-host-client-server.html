@@ -1,0 +1,104 @@
+<section
+  class="slide slide--diagram s10"
+  data-act="Acto 3 · Arquitectura"
+  data-title="Host, Client, Server"
+  data-fig="FIG. 10 — TRES CAPAS, UNA CONEXIÓN 1:1"
+  data-src="S2"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 3 · Arquitectura</p>
+    <h1>Host, Client, Server</h1>
+    <p class="lede">
+      El host es la app que usas. El server es el programa que expone capacidades. El client
+      es el objeto que mantiene una conexión dedicada con cada server. Tres piezas, no dos.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; align-items: center">
+    <div class="arch" aria-hidden="true">
+      <svg class="arch__svg" viewBox="0 0 1600 620">
+        <path class="st-flow" d="M660,146 H1070" marker-end="url(#arrow-flow)" />
+        <path class="st-flow" d="M660,250 H1070" marker-end="url(#arrow-flow)" />
+        <path class="st-flow" d="M660,354 H1070" marker-end="url(#arrow-flow)" />
+        <circle cx="660" cy="146" r="3" class="fl-flow" />
+        <circle cx="660" cy="250" r="3" class="fl-flow" />
+        <circle cx="660" cy="354" r="3" class="fl-flow" />
+        <text x="865" y="133" text-anchor="middle" class="mono tx-faint" style="font-size: 9px; letter-spacing: 0.1em">JSON-RPC · 1:1</text>
+        <text x="865" y="237" text-anchor="middle" class="mono tx-faint" style="font-size: 9px; letter-spacing: 0.1em">JSON-RPC · 1:1</text>
+        <text x="865" y="341" text-anchor="middle" class="mono tx-faint" style="font-size: 9px; letter-spacing: 0.1em">JSON-RPC · 1:1</text>
+      </svg>
+
+      <div class="host-box">
+        <div class="host-box__label">
+          <b>MCP Host</b>
+          <span>la aplicación que el usuario usa</span>
+        </div>
+
+        <div class="host-box__model">
+          <b>LLM</b>
+          <span>modelo + contexto</span>
+        </div>
+
+        <div class="host-box__clients">
+          <div class="client-chip">
+            <span class="client-chip__num">1</span>
+            <div><b>MCP Client</b><span>una conexión</span></div>
+          </div>
+          <div class="client-chip">
+            <span class="client-chip__num">2</span>
+            <div><b>MCP Client</b><span>una conexión</span></div>
+          </div>
+          <div class="client-chip">
+            <span class="client-chip__num">3</span>
+            <div><b>MCP Client</b><span>una conexión</span></div>
+          </div>
+        </div>
+
+        <p class="mono-11 faint" style="position: absolute; left: 24px; right: 24px; top: 392px; margin: 0; line-height: 1.45">
+          El host decide qué tools ve el modelo, qué resources entran al contexto y cuándo
+          pedir permiso. El client no decide: transporta y traduce.
+        </p>
+      </div>
+
+      <div class="arch__server" style="top: 101px">
+        <b>Filesystem Server</b>
+        <span>local · stdio</span>
+      </div>
+      <div class="arch__server" style="top: 205px">
+        <b>Postgres Server</b>
+        <span>local · stdio</span>
+      </div>
+      <div class="arch__server" style="top: 309px">
+        <b>Sentry Server</b>
+        <span>remoto · Streamable HTTP</span>
+      </div>
+
+      <div class="panel" style="position: absolute; left: 1080px; top: 430px; width: 440px; padding: 14px 18px">
+        <p class="mono-11 faint" style="margin: 0 0 4px">LA REGLA</p>
+        <p style="font-size: 17px; margin: 0">
+          <strong>3 servers → 3 clients.</strong> Un server remoto puede atender muchos
+          clients, pero cada client mantiene su propia conexión 1:1.
+        </p>
+      </div>
+
+      <p class="arch__note">FIG. 10 — el client es un objeto del host, no un proceso ni una persona</p>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      La confusión más común es pensar que hay dos piezas: “la app” y “el server”. Hay tres.
+      El <strong>host</strong> es la aplicación (Claude Desktop, VS Code, Cursor). El
+      <strong>server</strong> es el programa que expone capacidades. El <strong>client</strong>
+      es el objeto que el host crea para hablar con un server concreto.
+    </p>
+    <p>
+      La relación 1:1 es entre client y server. Un host con tres servers tiene tres clients.
+      Eso da aislamiento: cada conexión tiene su ciclo de vida, sus capacidades y sus permisos.
+    </p>
+    <p>
+      Matiz importante: un server remoto puede atender a muchos clients de muchos hosts a la
+      vez. La relación 1:1 es la conexión, no el proceso del server.
+    </p>
+  </aside>
+</section>

@@ -1,0 +1,111 @@
+<section
+  class="slide slide--diagram s07"
+  data-act="Acto 2 · La definición"
+  data-title="USB-C para la IA"
+  data-fig="FIG. 07 — UN PUERTO, MUCHOS DESTINOS"
+  data-src="S1"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 2 · La definición</p>
+    <h1>USB-C para la IA</h1>
+    <p class="lede">
+      La analogía oficial sirve para entender la idea en diez segundos. Después hay que
+      soltarla: un conector no es un protocolo.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="usbc">
+      <div style="display: flex; flex-direction: column; gap: 24px; justify-content: center">
+        <div class="quote">
+          <span class="quote__label">S1 · What is MCP? · docs oficiales</span>
+          <p class="quote__original" lang="en">
+            “Think of MCP like a USB-C port for AI applications. Just as USB-C provides a
+            standardized way to connect electronic devices, MCP provides a standardized way
+            to connect AI applications to external systems.”
+          </p>
+          <p class="quote__tr">
+            Piensa en MCP como un puerto USB-C para aplicaciones de IA. Igual que USB-C
+            ofrece una forma estandarizada de conectar dispositivos electrónicos, MCP ofrece
+            una forma estandarizada de conectar aplicaciones de IA con sistemas externos.
+          </p>
+        </div>
+
+        <div class="usbc__note">
+          <span aria-hidden="true" class="mono" style="color: var(--warn)">!</span>
+          <span>
+            <b>Es una analogía, no una especificación.</b> USB-C estandariza pines y
+            electricidad; MCP estandariza mensajes JSON-RPC, descubrimiento de capacidades
+            y tres primitivas. Lo que se comparte es la idea de un conector común, no el
+            diseño interno.
+          </span>
+        </div>
+
+        <div class="grid-2" style="gap: 10px">
+          <div class="panel" style="padding: 14px 16px">
+            <p class="mono-11 faint" style="margin: 0 0 4px">LO QUE ESTANDARIZA</p>
+            <p style="font-size: 17px; margin: 0">
+              Un formato de mensaje, un ciclo de descubrimiento, tres primitivas y dos
+              transportes.
+            </p>
+          </div>
+          <div class="panel" style="padding: 14px 16px">
+            <p class="mono-11 faint" style="margin: 0 0 4px">LO QUE NO ESTANDARIZA</p>
+            <p style="font-size: 17px; margin: 0">
+              Tu modelo, tu UI, tu lógica de negocio ni el diseño de tu API.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="usbc__devices" aria-hidden="true">
+        <svg class="dg" viewBox="0 0 700 620">
+          <path class="st-line st-dash" d="M254,310 C300,310 300,115 330,115" />
+          <path class="st-line st-dash" d="M254,310 C300,310 300,245 330,245" />
+          <path class="st-line st-dash" d="M254,310 C300,310 300,375 330,375" />
+          <path class="st-line st-dash" d="M254,310 C300,310 300,505 330,505" />
+          <circle cx="254" cy="310" r="4" class="fl-flow" />
+          <circle cx="330" cy="115" r="3" class="fl-flow" />
+          <circle cx="330" cy="245" r="3" class="fl-flow" />
+          <circle cx="330" cy="375" r="3" class="fl-flow" />
+          <circle cx="330" cy="505" r="3" class="fl-flow" />
+        </svg>
+
+        <div class="usbc__port">
+          <b>MCP</b>
+          <span>un conector estándar</span>
+        </div>
+
+        <div class="usbc__device" style="top: 70px">
+          <b>Datos</b>
+          <span>archivos · bases de datos · APIs</span>
+        </div>
+        <div class="usbc__device" style="top: 200px">
+          <b>Tools</b>
+          <span>acciones con efectos</span>
+        </div>
+        <div class="usbc__device" style="top: 330px">
+          <b>Prompts</b>
+          <span>plantillas de trabajo</span>
+        </div>
+        <div class="usbc__device" style="top: 460px">
+          <b>Workflows</b>
+          <span>prompts especializados</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      La analogía es útil para la intuición, pero conviene decir qué se pierde. USB-C es un
+      estándar físico y eléctrico; MCP es un protocolo de mensajes. La parte que sí se
+      transfiere es la idea de <strong>un contrato común que evita un cable distinto por
+      dispositivo</strong>.
+    </p>
+    <p>
+      No dejes que la analogía ocupe más de un minuto. La slide 08 hace el contraste que
+      de verdad importa: REST vs MCP.
+    </p>
+  </aside>
+</section>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="MCP explicado a fondo: el problema N×M, la arquitectura host/client/server, las primitivas y el flujo real del protocolo. Spec 2026-07-28."
+    />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0a1017" id="theme-color" />
+    <title>MCP — el protocolo que le pone puertos a la IA</title>
+    <style>
+      {{STYLES}}
+    </style>
+  </head>
+  <body>
+    <svg class="svg-defs" aria-hidden="true" focusable="false">
+      <defs>
+        <marker
+          id="arrow-flow"
+          viewBox="0 0 12 12"
+          refX="10"
+          refY="6"
+          markerWidth="12"
+          markerHeight="12"
+          markerUnits="userSpaceOnUse"
+          orient="auto-start-reverse"
+        >
+          <path d="M1,1 L11,6 L1,11 z" fill="var(--flow)" />
+        </marker>
+        <marker
+          id="arrow-model"
+          viewBox="0 0 12 12"
+          refX="10"
+          refY="6"
+          markerWidth="12"
+          markerHeight="12"
+          markerUnits="userSpaceOnUse"
+          orient="auto-start-reverse"
+        >
+          <path d="M1,1 L11,6 L1,11 z" fill="var(--model)" />
+        </marker>
+        <marker
+          id="arrow-dim"
+          viewBox="0 0 12 12"
+          refX="10"
+          refY="6"
+          markerWidth="12"
+          markerHeight="12"
+          markerUnits="userSpaceOnUse"
+          orient="auto-start-reverse"
+        >
+          <path d="M1,1 L11,6 L1,11 z" fill="var(--ink-faint)" />
+        </marker>
+        <marker
+          id="arrow-risk"
+          viewBox="0 0 12 12"
+          refX="10"
+          refY="6"
+          markerWidth="12"
+          markerHeight="12"
+          markerUnits="userSpaceOnUse"
+          orient="auto-start-reverse"
+        >
+          <path d="M1,1 L11,6 L1,11 z" fill="var(--risk)" />
+        </marker>
+        <marker
+          id="arrow-warn"
+          viewBox="0 0 12 12"
+          refX="10"
+          refY="6"
+          markerWidth="12"
+          markerHeight="12"
+          markerUnits="userSpaceOnUse"
+          orient="auto-start-reverse"
+        >
+          <path d="M1,1 L11,6 L1,11 z" fill="var(--warn)" />
+        </marker>
+        <marker
+          id="arrow-ok"
+          viewBox="0 0 12 12"
+          refX="10"
+          refY="6"
+          markerWidth="12"
+          markerHeight="12"
+          markerUnits="userSpaceOnUse"
+          orient="auto-start-reverse"
+        >
+          <path d="M1,1 L11,6 L1,11 z" fill="var(--ok)" />
+        </marker>
+      </defs>
+    </svg>
+
+    <div class="deck" id="deck">
+      <div class="progress" aria-hidden="true">
+        <span class="progress__fill" id="progress-fill"></span>
+      </div>
+
+      <div class="stage" id="stage">
+        <main class="slides" id="slides" aria-label="Presentación sobre el Model Context Protocol">
+          {{SLIDES}}
+        </main>
+      </div>
+
+      <nav class="chrome" aria-label="Controles de la presentación">
+        <span class="chrome__brand"><b>MCP</b> · 2026-07-28</span>
+        <button class="chrome__btn" type="button" id="btn-prev" title="Anterior" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+        </button>
+        <span class="chrome__count"><b id="cur">01</b> / <span id="total">27</span></span>
+        <button class="chrome__btn" type="button" id="btn-next" title="Siguiente" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+        </button>
+        <span class="chrome__sep" aria-hidden="true"></span>
+        <button class="chrome__btn" type="button" id="btn-overview" title="Vista general (O)" aria-label="Vista general">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" /><rect x="14" y="4" width="6" height="6" /><rect x="4" y="14" width="6" height="6" /><rect x="14" y="14" width="6" height="6" /></svg>
+        </button>
+        <button class="chrome__btn" type="button" id="btn-notes" title="Notas del presentador (N)" aria-label="Notas del presentador">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v11H9l-4 3V5z" /><path d="M8 9h8M8 12h5" /></svg>
+        </button>
+        <button class="chrome__btn" type="button" id="btn-theme" title="Cambiar tema (T)" aria-label="Cambiar tema">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" /></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" /></svg>
+        </button>
+        <button class="chrome__btn" type="button" id="btn-fullscreen" title="Pantalla completa (F)" aria-label="Pantalla completa">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
+        </button>
+        <button class="chrome__btn" type="button" id="btn-help" title="Atajos (?)" aria-label="Atajos de teclado">?</button>
+        <span class="chrome__hint">?</span>
+      </nav>
+
+      <div class="overlay overlay--overview" id="overview" role="dialog" aria-modal="true" aria-labelledby="overview-title">
+        <button class="overlay__close" type="button" data-close aria-label="Cerrar vista general">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+        <header class="overlay__head">
+          <div>
+            <p class="overlay__kicker">Recorrido completo</p>
+            <h2 class="overlay__title" id="overview-title">Vista general</h2>
+          </div>
+          <p class="overlay__hint">Clic para saltar · <kbd>O</kbd> o <kbd>Esc</kbd> para cerrar</p>
+        </header>
+        <div class="ov-grid" id="ov-grid"></div>
+      </div>
+
+      <div class="overlay overlay--notes" id="notes" role="dialog" aria-modal="true" aria-labelledby="notes-title">
+        <div class="notes-panel">
+          <button class="overlay__close" type="button" data-close aria-label="Cerrar notas">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+          <p class="notes-panel__label" id="notes-label">Notas del presentador</p>
+          <h2 class="notes-panel__title" id="notes-title">—</h2>
+          <div class="notes-panel__body" id="notes-body"></div>
+          <p class="notes-panel__foot">N para cerrar · ← → para navegar</p>
+        </div>
+      </div>
+
+      <div class="overlay overlay--help" id="help" role="dialog" aria-modal="true" aria-labelledby="help-title">
+        <button class="overlay__close" type="button" data-close aria-label="Cerrar ayuda">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+        <div class="help-card">
+          <h2 id="help-title">Atajos de teclado</h2>
+          <p>El deck funciona sin ratón. Los controles inferiores también son accesibles con Tab.</p>
+          <div class="help-grid">
+            <div class="help-row"><span>Siguiente</span><span class="help-keys"><kbd>→</kbd><kbd>↓</kbd><kbd>Espacio</kbd><kbd>RePág</kbd></span></div>
+            <div class="help-row"><span>Anterior</span><span class="help-keys"><kbd>←</kbd><kbd>↑</kbd><kbd>AvPág</kbd></span></div>
+            <div class="help-row"><span>Primera / última</span><span class="help-keys"><kbd>Inicio</kbd><kbd>Fin</kbd></span></div>
+            <div class="help-row"><span>Vista general</span><span class="help-keys"><kbd>O</kbd></span></div>
+            <div class="help-row"><span>Notas del presentador</span><span class="help-keys"><kbd>N</kbd></span></div>
+            <div class="help-row"><span>Cambiar tema</span><span class="help-keys"><kbd>T</kbd></span></div>
+            <div class="help-row"><span>Pantalla completa</span><span class="help-keys"><kbd>F</kbd></span></div>
+            <div class="help-row"><span>Atajos</span><span class="help-keys"><kbd>?</kbd></span></div>
+            <div class="help-row"><span>Cerrar panel</span><span class="help-keys"><kbd>Esc</kbd></span></div>
+            <div class="help-row"><span>Saltar a una slide</span><span class="help-keys"><kbd>#/17</kbd></span></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="sr-only" id="live" aria-live="polite"></p>
+    </div>
+
+    <script>
+      {{DECK_JS}}
+    </script>
+    <script>
+      {{DIAGRAMS_JS}}
+    </script>
+  </body>
+</html>

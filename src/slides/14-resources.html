@@ -1,0 +1,105 @@
+<section
+  class="slide s14"
+  data-act="Acto 4 · Primitivas"
+  data-title="Resources"
+  data-fig="FIG. 14 — DATOS CON URI, SIN EFECTOS"
+  data-src="S3"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 4 · Primitivas · 2 de 3</p>
+    <h1>Resources <span class="thin">— la aplicación decide qué incluir</span></h1>
+    <p class="lede">
+      Un resource es una fuente de datos de solo lectura con URI única y MIME type. No ejecuta
+      nada: informa. La aplicación decide si lo incluye en el context window.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="prim">
+      <div class="prim__copy">
+        <div class="prim__badge-row">
+          <span class="badge badge--flow"><span class="dot"></span> La aplicación decide</span>
+          <span class="badge">Solo lectura</span>
+          <span class="badge">URI + MIME</span>
+        </div>
+
+        <h2 class="prim__h">Resources <span>· datos</span></h2>
+
+        <p class="prim__p">
+          Archivos, esquemas de base de datos, documentación o respuestas de API. Cada resource
+          tiene una <strong>URI única</strong> y declara su <strong>MIME type</strong> para que el
+          host sepa cómo tratarlo.
+        </p>
+        <p class="prim__p">
+          Puede ser un resource directo o una <strong>plantilla con parámetros</strong>. La
+          aplicación elige qué traer, cómo filtrarlo y cuánto pasarle al modelo.
+        </p>
+
+        <div class="methods">
+          <span class="tag tag--flow">resources/list</span>
+          <span class="tag tag--flow">resources/templates/list</span>
+          <span class="tag tag--flow">resources/read</span>
+          <span class="tag">subscriptions/listen</span>
+        </div>
+
+        <div class="stack" style="margin-top: 18px">
+          <div class="res-card">
+            <code>file:///Documents/passport.pdf</code>
+            <span>Resource directo · application/pdf · el host decide si lo lee</span>
+          </div>
+          <div class="res-card">
+            <code>calendar://my-calendar/June-2024</code>
+            <span>Resource directo · disponibilidad del calendario</span>
+          </div>
+          <div class="res-card">
+            <code>travel://activities/{city}/{category}</code>
+            <span>Plantilla · se instancia con <span class="mono">barcelona/museums</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="prim__code">
+        <div class="code" style="height: auto">
+          <div class="code__head"><span>resources/templates/list · response</span><b>plantilla</b></div>
+          <pre><code data-lang="json">{
+  "uriTemplate": "travel://activities/{city}/{category}",
+  "name": "travel-activities",
+  "title": "Travel Activities",
+  "description": "Activities by city and category",
+  "mimeType": "application/json"
+}</code></pre>
+        </div>
+
+        <div class="panel panel--flow" style="margin-top: 16px; padding: 16px 18px">
+          <p class="mono-11 flow" style="margin: 0 0 6px">LA DIFERENCIA CON TOOLS</p>
+          <p style="font-size: 18px; margin: 0">
+            Un resource <strong>no ejecuta: informa</strong>. Si necesitas una acción con
+            efectos, es una tool. Si necesitas contexto, es un resource.
+          </p>
+        </div>
+
+        <p class="code-note">
+          La aplicación puede incluir un resource automáticamente, sugerirlo o dejar que el
+          usuario lo elija. El protocolo no impone una UI de selección.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Resources es la primitiva más “aburrida” y, para muchos casos, la más útil: dar contexto
+      de calidad sin que el modelo tenga que pedirlo. La diferencia con tools es de control:
+      aquí decide la aplicación, no el modelo.
+    </p>
+    <p>
+      La URI no es un detalle cosmético: es la identidad del dato. Permite listar, leer,
+      cachear y suscribirse a cambios. Las plantillas permiten describir familias enteras de
+      datos sin enumerarlas.
+    </p>
+    <p>
+      Si la audiencia pregunta por RAG: resources no es RAG. Es el canal por el que el host
+      obtiene datos; cómo los selecciona o indexa es cosa suya.
+    </p>
+  </aside>
+</section>

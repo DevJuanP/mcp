@@ -1,0 +1,102 @@
+<section
+  class="slide s22"
+  data-act="Acto 6 · Seguridad y cierre"
+  data-title="Qué NO resuelve MCP"
+  data-fig="FIG. 22 — ÁRBOL DE DECISIÓN"
+  data-src="S1 S2"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 6 · Seguridad y cierre</p>
+    <h1>Qué NO resuelve MCP</h1>
+    <p class="lede">
+      Adoptar MCP tiene coste: un server que mantener, un contrato que versionar y una
+      superficie de ataque nueva. La lista de límites es tan importante como la de beneficios.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="decision">
+      <div class="limits">
+        <div class="limit">
+          <span class="limit__x">✕</span>
+          <span><b>No gestiona el context window.</b> El host decide qué entra, qué se resume y qué se descarta.</span>
+        </div>
+        <div class="limit">
+          <span class="limit__x">✕</span>
+          <span><b>No resuelve tu autorización.</b> Define un framework de auth, no tu modelo de permisos.</span>
+        </div>
+        <div class="limit">
+          <span class="limit__x">✕</span>
+          <span><b>No define la lógica del agente.</b> Planificar, iterar y decidir cuándo parar es de la app.</span>
+        </div>
+        <div class="limit">
+          <span class="limit__x">✕</span>
+          <span><b>No garantiza la calidad del dato.</b> Si la API miente, la tool devuelve la mentira.</span>
+        </div>
+        <div class="limit">
+          <span class="limit__x">✕</span>
+          <span><b>No elimina el coste de mantener servers.</b> Mueve la integración; no la borra.</span>
+        </div>
+        <div class="limit">
+          <span class="limit__x">✕</span>
+          <span><b>No es un API Gateway ni observabilidad.</b> No sustituye WAF, cuotas, trazas ni métricas.</span>
+        </div>
+
+        <div class="panel panel--warn mt-12" style="padding: 14px 16px">
+          <p style="font-size: 16px; margin: 0">
+            <b>La pregunta honesta:</b> ¿el coste de un server y su contrato se paga con el
+            número de apps y sistemas que vas a conectar?
+          </p>
+        </div>
+      </div>
+
+      <div class="tree">
+        <h3>Árbol de decisión</h3>
+        <p class="mono-11 faint" style="margin: 4px 0 0">dos preguntas · cuatro veredictos</p>
+
+        <p class="tree__q">¿Tienes muchas apps contra muchos sistemas?</p>
+        <div class="seg" data-q="scale" role="group" aria-label="¿Muchas apps contra muchos sistemas?">
+          <button type="button" data-value="true" aria-pressed="true">Sí</button>
+          <button type="button" data-value="false" aria-pressed="false">No</button>
+        </div>
+
+        <p class="tree__q">¿Necesitas descubrimiento de capacidades en runtime?</p>
+        <div class="seg" data-q="discovery" role="group" aria-label="¿Necesitas descubrimiento en runtime?">
+          <button type="button" data-value="true" aria-pressed="true">Sí</button>
+          <button type="button" data-value="false" aria-pressed="false">No</button>
+        </div>
+
+        <div class="tree__verdict">
+          <span class="tree__verdict-label">Veredicto</span>
+          <p data-verdict>
+            MCP encaja: tienes un problema N×M y quieres descubrimiento en runtime. El coste
+            del protocolo se paga solo.
+          </p>
+        </div>
+
+        <p class="tree__foot">
+          El árbol no mide urgencia ni presupuesto. Si dudas, empieza por una API interna bien
+          diseñada; MCP se añade cuando aparezca el segundo host.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Esta slide es el antídoto contra el hype. MCP es una buena decisión cuando hay
+      multiplicación de integraciones o cuando quieres que hosts de terceros descubran tus
+      capacidades. No es una buena decisión para una app con una sola API interna.
+    </p>
+    <p>
+      El árbol tiene cuatro salidas y ninguna es “MCP siempre”. La combinación más frecuente
+      en empresas pequeñas es <strong>muchas apps, poco descubrimiento</strong>: ahí suele
+      ganar una API interna con SDKs antes que un protocolo.
+    </p>
+    <p>
+      Si alguien pregunta por el coste: un server MCP es código de producción. Tiene tests,
+      versiones, auth, errores, métricas y un contrato que puede romper a los hosts. Ese coste
+      es real y hay que ponerlo en la balanza.
+    </p>
+  </aside>
+</section>

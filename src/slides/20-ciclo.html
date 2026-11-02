@@ -1,0 +1,109 @@
+<section
+  class="slide slide--diagram s20"
+  data-act="Acto 5 · El flujo real"
+  data-title="El ciclo completo"
+  data-fig="FIG. 20 — DÓNDE EMPIEZA Y DÓNDE ACABA MCP"
+  data-src="S2 S3"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 5 · El flujo real</p>
+    <h1>El ciclo completo</h1>
+    <p class="lede">
+      Del usuario al sistema externo y de vuelta. MCP cubre un tramo concreto: el que va del
+      client al server. Los extremos son tu aplicación y el modelo.
+    </p>
+  </header>
+
+  <div class="s-body">
+    <div class="cycle">
+      <div class="cycle__flag" style="left: 40px">
+        Decide el modelo
+        <span>dentro del host · no es MCP</span>
+      </div>
+      <div class="cycle__flag" style="left: 410px">
+        Aprueba el host
+        <span>política de permisos · no es MCP</span>
+      </div>
+
+      <svg class="cycle__svg" viewBox="0 0 1600 520" aria-hidden="true">
+        <path class="st-flow" d="M212,132 H226" marker-end="url(#arrow-flow)" />
+        <path class="st-flow" d="M440,132 H454" marker-end="url(#arrow-flow)" />
+        <path class="st-flow" d="M668,132 H682" marker-end="url(#arrow-flow)" />
+        <path class="st-flow" d="M896,132 H910" marker-end="url(#arrow-flow)" />
+        <path class="st-flow" d="M1124,132 H1138" marker-end="url(#arrow-flow)" />
+        <path class="st-flow" d="M1352,132 H1366" marker-end="url(#arrow-flow)" />
+
+        <path class="st-flow st-dash" style="opacity: 0.55" d="M1473,172 V430 H561 V174" marker-end="url(#arrow-flow)" />
+        <text x="1017" y="452" text-anchor="middle" class="mono tx-faint" style="font-size: 11px; letter-spacing: 0.12em">
+          EL RESULTADO VUELVE AL CONTEXTO
+        </text>
+      </svg>
+
+      <div class="cycle__node" style="left: 0">
+        <b>Usuario</b>
+        <span>petición</span>
+      </div>
+      <div class="cycle__node" style="left: 228px">
+        <b>Host</b>
+        <span>contexto y permisos</span>
+      </div>
+      <div class="cycle__node cycle__node--model" style="left: 456px">
+        <b>Modelo</b>
+        <span>decide la tool</span>
+      </div>
+      <div class="cycle__node cycle__node--flow" style="left: 684px">
+        <b>Client</b>
+        <span>habla MCP</span>
+      </div>
+      <div class="cycle__node cycle__node--flow" style="left: 912px">
+        <b>Server</b>
+        <span>ejecuta</span>
+      </div>
+      <div class="cycle__node" style="left: 1140px">
+        <b>Sistema externo</b>
+        <span>API · dato · archivo</span>
+      </div>
+      <div class="cycle__node" style="left: 1368px; border-color: color-mix(in srgb, var(--ok) 45%, transparent)">
+        <b class="ok">Resultado</b>
+        <span>contenido tipado</span>
+      </div>
+    </div>
+
+    <div class="frontiers">
+      <div class="frontier">
+        <b>El modelo decide.</b> El host le pasa una lista de tools; el modelo elige una.
+        Este paso ocurre dentro del host y no genera tráfico MCP.
+      </div>
+      <div class="frontier">
+        <b>El host aprueba.</b> La política de permisos —por ejecución, por tool o por
+        sesión de trabajo— es de la aplicación, no del protocolo.
+      </div>
+      <div class="frontier">
+        <b>El server ejecuta.</b> Valida argumentos, habla con el sistema externo y devuelve
+        contenido. El resultado vuelve al contexto y el ciclo se repite.
+      </div>
+    </div>
+
+    <p class="mono-11 faint mt-12" style="margin-bottom: 0">
+      MCP cubre solo Client ↔ Server. Todo lo que hay a la izquierda y a la derecha es tu arquitectura.
+    </p>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Esta slide cierra el acto del flujo. Si la audiencia se lleva una sola imagen, que sea
+      esta: el protocolo no empieza en el usuario ni termina en la respuesta del modelo.
+      Empieza cuando el host ya decidió qué exponer y termina cuando el server devuelve el
+      resultado.
+    </p>
+    <p>
+      <strong>Los dos flags son las fronteras de seguridad.</strong> La decisión del modelo
+      no es una decisión de negocio; la aprobación del host es la que convierte una intención
+      en una acción permitida.
+    </p>
+    <p>
+      Si el host no pide permiso, MCP sigue funcionando: el protocolo no lo exige. Pero la
+      responsabilidad de lo que se ejecuta es de la aplicación que conectó el server.
+    </p>
+  </aside>
+</section>

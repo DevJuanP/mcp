@@ -1,0 +1,98 @@
+<section
+  class="slide slide--diagram s06"
+  data-act="Acto 1 · El problema"
+  data-title="La jugada de MCP"
+  data-fig="FIG. 06 — EL PRODUCTO SE VUELVE SUMA"
+  data-src="S1 S13"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 1 · El problema</p>
+    <h1>La jugada de MCP</h1>
+    <p class="lede">
+      Cada app implementa el protocolo una vez. Cada sistema expone un server una vez.
+      El producto deja de crecer como producto y empieza a crecer como suma.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; align-items: center">
+    <div class="wall">
+      <svg class="wall__svg" viewBox="0 0 1600 620" aria-hidden="true">
+        <path pathLength="1" style="--i: 0" class="wall__wire wall__wire--n draw" d="M210,192 C640,192 960,192 1390,192" />
+        <path pathLength="1" style="--i: 1" class="wall__wire wall__wire--n draw" d="M210,192 C640,192 960,290 1390,290" />
+        <path pathLength="1" style="--i: 2" class="wall__wire wall__wire--n draw" d="M210,192 C640,192 960,388 1390,388" />
+        <path pathLength="1" style="--i: 3" class="wall__wire wall__wire--n draw" d="M210,192 C640,192 960,486 1390,486" />
+        <path pathLength="1" style="--i: 4" class="wall__wire wall__wire--n draw" d="M210,290 C640,290 960,192 1390,192" />
+        <path pathLength="1" style="--i: 5" class="wall__wire wall__wire--n draw" d="M210,290 C640,290 960,290 1390,290" />
+        <path pathLength="1" style="--i: 6" class="wall__wire wall__wire--n draw" d="M210,290 C640,290 960,388 1390,388" />
+        <path pathLength="1" style="--i: 7" class="wall__wire wall__wire--n draw" d="M210,290 C640,290 960,486 1390,486" />
+        <path pathLength="1" style="--i: 8" class="wall__wire wall__wire--n draw" d="M210,388 C640,388 960,192 1390,192" />
+        <path pathLength="1" style="--i: 9" class="wall__wire wall__wire--n draw" d="M210,388 C640,388 960,290 1390,290" />
+        <path pathLength="1" style="--i: 10" class="wall__wire wall__wire--n draw" d="M210,388 C640,388 960,388 1390,388" />
+        <path pathLength="1" style="--i: 11" class="wall__wire wall__wire--n draw" d="M210,388 C640,388 960,486 1390,486" />
+        <path pathLength="1" style="--i: 12" class="wall__wire wall__wire--n draw" d="M210,486 C640,486 960,192 1390,192" />
+        <path pathLength="1" style="--i: 13" class="wall__wire wall__wire--n draw" d="M210,486 C640,486 960,290 1390,290" />
+        <path pathLength="1" style="--i: 14" class="wall__wire wall__wire--n draw" d="M210,486 C640,486 960,388 1390,388" />
+        <path pathLength="1" style="--i: 15" class="wall__wire wall__wire--n draw" d="M210,486 C640,486 960,486 1390,486" />
+
+        <g class="wall__wires-mcp">
+          <path class="wall__wire wall__wire--mcp" d="M210,192 C430,192 500,270 650,270" />
+          <path class="wall__wire wall__wire--mcp" d="M210,290 C430,290 500,300 650,300" />
+          <path class="wall__wire wall__wire--mcp" d="M210,388 C430,388 500,330 650,330" />
+          <path class="wall__wire wall__wire--mcp" d="M210,486 C430,486 500,360 650,360" />
+          <path class="wall__wire wall__wire--mcp" d="M950,270 C1100,270 1170,192 1390,192" />
+          <path class="wall__wire wall__wire--mcp" d="M950,300 C1100,300 1170,290 1390,290" />
+          <path class="wall__wire wall__wire--mcp" d="M950,330 C1100,330 1170,388 1390,388" />
+          <path class="wall__wire wall__wire--mcp" d="M950,360 C1100,360 1170,486 1390,486" />
+        </g>
+      </svg>
+
+      <div class="wall__col wall__col--left">
+        <span class="wall__label">Apps · 4</span>
+        <div class="wall__node wall__node--app"><b>Claude</b><span>host</span></div>
+        <div class="wall__node wall__node--app"><b>ChatGPT</b><span>host</span></div>
+        <div class="wall__node wall__node--app"><b>Cursor</b><span>host</span></div>
+        <div class="wall__node wall__node--app"><b>VS Code</b><span>host</span></div>
+      </div>
+
+      <div class="wall__hud">
+        <span class="wall__hud-label">El coste del muro</span>
+        <span class="wall__hud-label wall__hud-label--solved">El coste con MCP</span>
+        <span class="wall__count"><span data-wall-count>16</span><small>conectores</small></span>
+      </div>
+
+      <div class="wall__hub" aria-hidden="true">
+        <b>MCP</b>
+        <span>un protocolo · N servers</span>
+      </div>
+
+      <div class="wall__col wall__col--right">
+        <span class="wall__label">Sistemas · 4</span>
+        <div class="wall__node wall__node--system"><b>GitHub</b><span>API</span></div>
+        <div class="wall__node wall__node--system"><b>Postgres</b><span>base de datos</span></div>
+        <div class="wall__node wall__node--system"><b>Google Drive</b><span>archivos</span></div>
+        <div class="wall__node wall__node--system"><b>Slack</b><span>mensajería</span></div>
+      </div>
+
+      <span class="s06__legend">16 conexiones directas → 8 conexiones al protocolo</span>
+      <span class="s06__formula"><s>N × M</s> = 16 &nbsp;→&nbsp; <b>N + M</b> = 8</span>
+      <button class="s06__button" type="button" data-solve aria-pressed="false">Insertar el protocolo</button>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Este es el momento “ajá” del deck. Pulsa el botón y deja que el contador baje de 16 a 8.
+      No es magia: es un cambio de topología. Las apps hablan con un protocolo y los sistemas
+      exponen un server para ese protocolo.
+    </p>
+    <p>
+      <strong>MCP no elimina la integración.</strong> La mueve: cada sistema sigue necesitando
+      un server que sepa hablar con su API, su base de datos o sus archivos. Lo que desaparece
+      es la multiplicación por cada app.
+    </p>
+    <p>
+      La fórmula N×M → N+M es una simplificación pedagógica. En la práctica hay auth, permisos
+      y versiones; pero la diferencia de orden de magnitud es real.
+    </p>
+  </aside>
+</section>

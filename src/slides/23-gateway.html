@@ -1,0 +1,102 @@
+<section
+  class="slide slide--diagram s23"
+  data-act="Acto 6 · Seguridad y cierre"
+  data-title="MCP y API Gateway"
+  data-fig="FIG. 23 — DOS CAPAS, NO DOS RIVALES"
+  data-src="S2 S6"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 6 · Seguridad y cierre</p>
+    <h1>MCP y API Gateway</h1>
+    <p class="lede">
+      No compiten. El gateway protege y enruta el backend; el server MCP describe capacidades
+      al modelo. En una arquitectura madura, cada uno hace su trabajo.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 14px">
+    <div class="gateway" style="height: 390px">
+      <svg class="gateway__svg" viewBox="0 0 1600 390" aria-hidden="true">
+        <path class="st-flow" d="M232,185 H338" marker-end="url(#arrow-flow)" />
+        <path class="st-flow" d="M592,185 H728" marker-end="url(#arrow-flow)" />
+        <path class="st-flow" d="M982,185 H1298" marker-end="url(#arrow-flow)" />
+        <text x="285" y="172" text-anchor="middle" class="mono tx-faint" style="font-size: 9px">MCP</text>
+        <text x="660" y="172" text-anchor="middle" class="mono tx-faint" style="font-size: 9px">HTTPS</text>
+        <text x="1140" y="172" text-anchor="middle" class="mono tx-faint" style="font-size: 9px">HTTP</text>
+      </svg>
+
+      <span class="gw-lane" style="left: 0; top: 112px">plano del modelo</span>
+      <span class="gw-lane" style="left: 730px; top: 112px">plano HTTP</span>
+
+      <div class="gw-node" style="left: 0; top: 150px; width: 230px">
+        <b>Host + modelo</b>
+        <span>descubre tools</span>
+      </div>
+
+      <div class="gw-node gw-node--mcp" style="left: 340px; top: 150px; width: 250px">
+        <b>MCP Server</b>
+        <span>tools · resources · prompts</span>
+      </div>
+
+      <div class="gw-node gw-node--gw" style="left: 730px; top: 150px; width: 250px">
+        <b>API Gateway</b>
+        <span>auth · cuotas · WAF</span>
+      </div>
+
+      <div class="gw-services">
+        <span class="gw-services__label">Sistemas externos</span>
+        <div class="gw-service">GitHub API</div>
+        <div class="gw-service">Postgres</div>
+        <div class="gw-service">API interna</div>
+        <div class="gw-service">Object Storage</div>
+      </div>
+
+      <p class="gw-note">
+        El gateway no entiende el schema de una tool; el MCP server no reemplaza WAF, cuotas ni routing.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="panel panel--warn" style="padding: 16px 18px">
+        <div class="panel__head" style="margin-bottom: 8px"><b>API Gateway</b><span class="badge badge--warn">HTTP</span></div>
+        <p style="font-size: 16px">
+          Autentica y autoriza en el borde, aplica cuotas, WAF, TLS, routing y telemetría.
+          No sabe qué es una tool ni qué argumentos acepta.
+        </p>
+      </div>
+
+      <div class="panel panel--flow" style="padding: 16px 18px">
+        <div class="panel__head" style="margin-bottom: 8px"><b>MCP Server</b><span class="badge badge--flow">Semántica</span></div>
+        <p style="font-size: 16px">
+          Publica tools y resources, valida argumentos, aplica permisos por tool y traduce la
+          llamada a la API. No reemplaza el gateway.
+        </p>
+      </div>
+
+      <div class="panel" style="padding: 16px 18px">
+        <div class="panel__head" style="margin-bottom: 8px"><b>Cómo conviven</b><span class="badge badge--ok">Juntos</span></div>
+        <p style="font-size: 16px">
+          Gateway delante del MCP server para OAuth y límites; MCP server delante del gateway
+          para semántica. Cada capa valida lo que entiende.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      La confusión típica: “¿MCP reemplaza mi API Gateway?”. No. El gateway es una capa de
+      control de tráfico HTTP; MCP es una capa de descripción de capacidades para un modelo.
+    </p>
+    <p>
+      <strong>El gateway sigue siendo necesario</strong> para OAuth, cuotas, WAF, mTLS,
+      enrutamiento y observabilidad. El server MCP añade una cosa que el gateway no tiene:
+      un contrato machine-readable de qué puede hacer el modelo y con qué schema.
+    </p>
+    <p>
+      Ojo con el término “MCP gateway”: a veces se usa para un agregador de servers MCP
+      (multiplexa conexiones y credenciales). Es otra pieza, no un API Gateway. En esta slide
+      hablamos del gateway HTTP de toda la vida.
+    </p>
+  </aside>
+</section>

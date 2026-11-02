@@ -1,0 +1,109 @@
+<section
+  class="slide slide--diagram s04"
+  data-act="Acto 1 · El problema"
+  data-title="Function calling no es MCP"
+  data-fig="FIG. 04 — EL MODELO PROPONE; LA APP EJECUTA"
+  data-src="S2"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 1 · El problema</p>
+    <h1>Function calling no es MCP</h1>
+    <p class="lede">
+      Function calling resuelve una parte: que el modelo elija una función y sus argumentos.
+      No resuelve cómo se descubre, se conecta y se autentica esa función en otra aplicación.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 20px">
+    <div class="chain">
+      <div class="chain__step anim" style="--d: 0ms">
+        <span class="chain__num">01 / USUARIO</span>
+        <span class="chain__title">Pide el clima</span>
+        <span class="chain__desc">“¿Qué tiempo hace en Barcelona ahora mismo?”</span>
+      </div>
+
+      <div class="chain__arrow" aria-hidden="true">
+        <svg viewBox="0 0 30 12"><path d="M0 6h26M20 1l6 5-6 5" /></svg>
+      </div>
+
+      <div class="chain__step anim" style="--d: 90ms">
+        <span class="chain__num">02 / APP</span>
+        <span class="chain__title">Arma la lista</span>
+        <span class="chain__desc">Nombre, descripción y schema de cada función disponible.</span>
+      </div>
+
+      <div class="chain__arrow chain__arrow--model" aria-hidden="true">
+        <svg viewBox="0 0 30 12"><path d="M0 6h26M20 1l6 5-6 5" /></svg>
+      </div>
+
+      <div class="chain__step chain__step--model anim" style="--d: 180ms">
+        <span class="chain__num">03 / MODELO</span>
+        <span class="chain__title">Emite el JSON</span>
+        <span class="chain__desc">“Llama a <span class="mono">weather_current</span> con <span class="mono">location=Barcelona</span>”.</span>
+      </div>
+
+      <div class="chain__arrow chain__arrow--flow" aria-hidden="true">
+        <svg viewBox="0 0 30 12"><path d="M0 6h26M20 1l6 5-6 5" /></svg>
+      </div>
+
+      <div class="chain__step chain__step--flow anim" style="--d: 270ms">
+        <span class="chain__num">04 / APP</span>
+        <span class="chain__title">Ejecuta</span>
+        <span class="chain__desc">Valida los argumentos, llama a la API y recoge el resultado.</span>
+      </div>
+
+      <div class="chain__arrow chain__arrow--model" aria-hidden="true">
+        <svg viewBox="0 0 30 12"><path d="M0 6h26M20 1l6 5-6 5" /></svg>
+      </div>
+
+      <div class="chain__step anim" style="--d: 360ms">
+        <span class="chain__num">05 / MODELO</span>
+        <span class="chain__title">Redacta</span>
+        <span class="chain__desc">El resultado vuelve al contexto y el modelo responde.</span>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap: 20px">
+      <div class="panel panel--ok anim" style="--d: 420ms">
+        <div class="panel__head"><b>Lo que function calling ya resuelve</b><span class="badge badge--ok">Suficiente para una app</span></div>
+        <p>
+          El modelo elige <strong>qué función llamar y con qué argumentos</strong> a partir de
+          una lista que la aplicación le pasa en el prompt. La app conserva el control de la
+          ejecución.
+        </p>
+      </div>
+
+      <div class="panel panel--risk anim" style="--d: 500ms">
+        <div class="panel__head"><b>Lo que no resuelve</b><span class="badge badge--risk">El problema empieza aquí</span></div>
+        <p>
+          Cómo <strong>descubre otra app</strong> esas funciones, con qué auth, con qué schema y
+          por qué transporte. Cada app define su propio formato; no hay contrato entre apps.
+        </p>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <span class="takeaway__icon">!</span>
+      <span>
+        El modelo <b>nunca ejecuta nada</b>: propone una llamada. La app ejecuta. MCP
+        estandariza esa parte de afuera —la conexión y el descubrimiento—, no la ejecución.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Si la audiencia viene de function calling, este es el punto exacto donde hay que
+      distinguir las dos capas. Function calling es <em>dentro</em> de una app: el modelo
+      elige entre las funciones que esa app le dio. MCP es <em>entre</em> apps y sistemas:
+      cómo se descubre y se invoca una capacidad que vive en otro proceso.
+    </p>
+    <p>
+      La frase clave: <strong>el modelo propone; la app ejecuta</strong>. MCP no cambia eso.
+      Lo que cambia es dónde vive la lista de funciones y cómo se obtiene.
+    </p>
+    <p>
+      Cada app que quiera usar GitHub inventa su conector. Ahí nace el muro de la slide 05.
+    </p>
+  </aside>
+</section>

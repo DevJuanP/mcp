@@ -1,0 +1,103 @@
+<section
+  class="slide slide--dense s08"
+  data-act="Acto 2 · La definición"
+  data-title="API REST vs MCP"
+  data-fig="FIG. 08 — MISMO MUNDO, OTRO CONTRATO"
+  data-src="S2 S3 S5"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 2 · La definición</p>
+    <h1>API REST vs MCP</h1>
+    <p class="lede">
+      No compiten. REST expone resources y operaciones; MCP expone capacidades con semántica
+      para un modelo. La diferencia que lo cambia todo es el descubrimiento en runtime.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 14px">
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <colgroup>
+          <col style="width: 250px" />
+          <col style="width: 720px" />
+          <col style="width: 720px" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Aspecto</th>
+            <th class="is-rest">API REST</th>
+            <th class="is-mcp">MCP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Qué expone</td>
+            <td>Resources y operaciones con verbos HTTP: <code>GET /users/42</code>.</td>
+            <td class="is-mcp">Capacidades: <strong>tools</strong> (acciones), <strong>resources</strong> (datos) y <strong>prompts</strong> (plantillas).</td>
+          </tr>
+          <tr>
+            <td>Quién consume</td>
+            <td>Un desarrollador que lee la documentación y escribe código.</td>
+            <td class="is-mcp">Un <strong>host</strong> que descubre y negocia capacidades en runtime.</td>
+          </tr>
+          <tr>
+            <td>Contrato</td>
+            <td>OpenAPI es opcional; la documentación puede ser prosa.</td>
+            <td class="is-mcp"><code>inputSchema</code> obligatorio por tool, en JSON Schema.</td>
+          </tr>
+          <tr>
+            <td>Descubrimiento</td>
+            <td>Fuera de banda: docs, SDK, código escrito a mano.</td>
+            <td class="is-mcp"><code>server/discover</code>, <code>tools/list</code>, <code>resources/list</code>.</td>
+          </tr>
+          <tr>
+            <td>Transporte</td>
+            <td>HTTP.</td>
+            <td class="is-mcp"><code>stdio</code> o Streamable HTTP. El mensaje JSON-RPC es el mismo.</td>
+          </tr>
+          <tr>
+            <td>Auth</td>
+            <td>La que definas: API key, OAuth, mTLS, sesión.</td>
+            <td class="is-mcp">La implementa el server; OAuth 2.1 es la recomendación para remoto.</td>
+          </tr>
+          <tr>
+            <td>Versionado</td>
+            <td>Por URL, header o media type.</td>
+            <td class="is-mcp"><code>YYYY-MM-DD</code> en cada request, dentro de <code>_meta</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rest-vs__note">
+      <span><b>Comparten:</b> HTTP, JSON, auth, versionado.</span>
+      <span><b>Difieren:</b> el contrato es machine-readable y el descubrimiento ocurre en runtime.</span>
+    </div>
+
+    <div class="takeaway">
+      <span class="takeaway__icon">→</span>
+      <span>
+        MCP no reemplaza tu API: la <b>envuelve</b> y la describe para que un modelo pueda
+        descubrir qué puede hacer y con qué schema.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      La comparación honesta: MCP y REST comparten la mitad del stack. La diferencia no es
+      “mejor transporte” ni “mejor formato”. Es que MCP añade un contrato que un host puede
+      leer sin que un humano escriba un client a medida.
+    </p>
+    <p>
+      <strong>REST te dice cómo pedir un resource; MCP le dice a un modelo qué capacidades
+      existen y cómo invocarlas.</strong> Por eso el schema y el descubrimiento son la parte
+      central, no el transporte.
+    </p>
+    <p>
+      Si alguien pregunta “¿entonces MCP es REST con JSON-RPC?”, la respuesta es: no
+      exactamente. JSON-RPC es el formato de mensaje; la semántica de tools/resources/prompts
+      y el ciclo de descubrimiento son lo que hace que sea MCP.
+    </p>
+  </aside>
+</section>

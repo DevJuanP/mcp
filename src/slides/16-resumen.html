@@ -1,0 +1,117 @@
+<section
+  class="slide slide--dense s16"
+  data-act="Acto 4 · Primitivas"
+  data-title="Tools, Resources, Prompts"
+  data-fig="FIG. 16 — TRES PRIMITIVAS, TRES CONTROLES"
+  data-src="S3"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 4 · Primitivas · resumen</p>
+    <h1>Tres primitivas, tres controles</h1>
+    <p class="lede">
+      La diferencia no está en el formato de la respuesta: está en quién decide que la
+      primitiva se use. Modelo, aplicación y usuario tienen cada uno su palanca.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 16px">
+    <div class="cmp-wrap">
+      <table class="cmp summary-table">
+        <colgroup>
+          <col style="width: 180px" />
+          <col style="width: 160px" />
+          <col style="width: 470px" />
+          <col style="width: 470px" />
+          <col style="width: 390px" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Primitiva</th>
+            <th>Quién controla</th>
+            <th>Qué es</th>
+            <th>Cuándo se usa</th>
+            <th>Métodos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tools</td>
+            <td><span class="who who--model">Modelo</span></td>
+            <td>Acciones con efectos secundarios: escribir, enviar, reservar, desplegar.</td>
+            <td>Cuando el modelo debe decidir y ejecutar algo que cambia el mundo.</td>
+            <td><code>tools/list</code> · <code>tools/call</code></td>
+          </tr>
+          <tr>
+            <td>Resources</td>
+            <td><span class="who who--app">Aplicación</span></td>
+            <td>Datos de solo lectura con URI y MIME type: archivos, esquemas, documentos.</td>
+            <td>Cuando el host necesita contexto y decide qué parte cargar.</td>
+            <td><code>resources/list</code> · <code>resources/read</code></td>
+          </tr>
+          <tr>
+            <td>Prompts</td>
+            <td><span class="who who--user">Usuario</span></td>
+            <td>Plantillas de mensajes con argumentos para una tarea concreta.</td>
+            <td>Cuando el usuario invoca un workflow de forma explícita.</td>
+            <td><code>prompts/list</code> · <code>prompts/get</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="between">
+      <span class="mono-11 faint">EL MISMO VIAJE, LAS TRES PRIMITIVAS</span>
+      <span class="mono-11 faint">Barcelona · 5 días</span>
+    </div>
+
+    <div class="bcn">
+      <div class="bcn__card bcn__card--user">
+        <h4>Prompt · el usuario arranca</h4>
+        <p>
+          <code>/plan-vacation</code> con <code>destination</code> y <code>days</code>.
+          El server devuelve la plantilla y el host la mete en el contexto.
+        </p>
+      </div>
+      <div class="bcn__card bcn__card--app">
+        <h4>Resource · la app carga contexto</h4>
+        <p>
+          <code>travel://barcelona/forecast</code> y el calendario. El host decide incluir
+          el clima y los museos abiertos; el server solo los sirve.
+        </p>
+      </div>
+      <div class="bcn__card bcn__card--model">
+        <h4>Tool · el modelo actúa</h4>
+        <p>
+          <code>book_restaurant</code> con fecha y personas. El modelo la elige; el host
+          pide aprobación antes de escribir la reserva.
+        </p>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <span class="takeaway__icon">?</span>
+      <span>
+        La pregunta correcta no es «¿qué primitiva es?» sino <b>«¿quién debe decidir cuándo
+        se usa?»</b>. Si la respuesta es el usuario, es un prompt; si es la app, un resource;
+        si es el modelo, una tool.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Esta slide es la tabla de decisión que la gente se lleva. Tools, resources y prompts no
+      son tres sabores de lo mismo: son tres contratos de control distintos.
+    </p>
+    <p>
+      <strong>El ejemplo de Barcelona enseña cómo conviven.</strong> El usuario invoca el
+      prompt, la aplicación carga los resources que considera relevantes y el modelo decide
+      si necesita una tool para reservar. Ninguna primitiva reemplaza a las otras.
+    </p>
+    <p>
+      Si alguien pregunta “¿puedo hacer todo con tools?”, la respuesta es sí, pero pierdes la
+      semántica: el modelo tendría que pedir datos con una tool de lectura y el usuario no
+      tendría un punto de entrada explícito. Funciona; no es el diseño.
+    </p>
+  </aside>
+</section>

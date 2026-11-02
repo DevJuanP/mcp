@@ -1,0 +1,163 @@
+<section
+  class="slide slide--dense s18"
+  data-act="Acto 5 · El flujo real"
+  data-title="Stateless"
+  data-fig="FIG. 18 — CADA REQUEST SE EXPLICA SOLO"
+  data-src="S5 S8 S9"
+>
+  <header class="s-head">
+    <p class="kicker">Acto 5 · El flujo real</p>
+    <h1>Stateless <span class="thin">— la sesión ya no existe</span></h1>
+    <p class="lede">
+      2026-07-28 elimina el handshake y las sesiones. Cada request lleva la versión y las
+      capacidades que el server necesita. Si un tutorial te muestra <code class="mono">initialize</code>,
+      es de otra era.
+    </p>
+  </header>
+
+  <div class="s-body" style="display: flex; flex-direction: column; gap: 14px">
+    <div class="beforeafter">
+      <div class="ba ba--old">
+        <div class="ba__label">
+          <span>Antes · ≤ 2025-11-25</span>
+          <span class="badge">Legacy</span>
+        </div>
+        <div class="ba__flow">
+          <span class="chip chip--strike">initialize</span>
+          <span class="dim">→</span>
+          <span class="chip chip--strike">initialized</span>
+          <span class="dim">→</span>
+          <span class="chip chip--strike">Mcp-Session-Id</span>
+          <span class="dim">→</span>
+          <span class="chip">requests</span>
+        </div>
+        <p class="ba__note">
+          El server recordaba versión, capacidades e identidad para toda la conexión o
+          sesión. El primer mensaje condicionaba todos los siguientes.
+        </p>
+      </div>
+
+      <div class="ba ba--new">
+        <div class="ba__label">
+          <span>Ahora · 2026-07-28</span>
+          <span class="badge badge--flow">Modern</span>
+        </div>
+        <div class="ba__flow">
+          <span class="chip chip--flow">request</span>
+          <span class="dim">+</span>
+          <span class="chip chip--flow">_meta</span>
+          <span class="dim">→</span>
+          <span class="chip chip--flow">result</span>
+        </div>
+        <p class="ba__note">
+          Cada request se procesa de forma independiente. <b>La conexión no es una
+          conversación</b>: puedes intercalar requests no relacionados en el mismo transporte.
+        </p>
+      </div>
+    </div>
+
+    <div class="split-wide" style="gap: 24px">
+      <div style="display: flex; flex-direction: column; gap: 12px; min-width: 0">
+        <div class="cmp-wrap" style="padding: 14px 8px 4px">
+          <table class="cmp" style="font-size: 16px">
+            <colgroup>
+              <col style="width: 330px" />
+              <col style="width: 560px" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Qué se eliminó</th>
+                <th>Qué lo reemplaza</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Handshake</td>
+                <td><code>_meta</code> obligatorio en cada request.</td>
+              </tr>
+              <tr>
+                <td>Sesiones</td>
+                <td>Sin <code>Mcp-Session-Id</code>; handles explícitos como argumentos.</td>
+              </tr>
+              <tr>
+                <td>Requests del server</td>
+                <td>MRTR: <code>resultType: "input_required"</code> y reintento.</td>
+              </tr>
+              <tr>
+                <td>Subscribe / GET SSE</td>
+                <td><code>subscriptions/listen</code> con un stream por request.</td>
+              </tr>
+              <tr>
+                <td>Ping y logLevel global</td>
+                <td><code>ping</code> eliminado; <code>logLevel</code> por request.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel panel--warn" style="padding: 12px 16px">
+          <div class="panel__head" style="margin-bottom: 6px">
+            <b>Cómo detectar docs viejas</b>
+            <span class="badge badge--risk">Red flag</span>
+          </div>
+          <p style="font-size: 15px; margin: 0">
+            Si ves <code class="mono">initialize</code>, <code class="mono">notifications/initialized</code>
+            o <code class="mono">Mcp-Session-Id</code>, el documento describe 2025 o antes:
+            ya no aplica.
+          </p>
+        </div>
+      </div>
+
+      <div class="code" style="min-height: 0">
+        <div class="code__head"><span>cada request · mínimo obligatorio</span><b>_meta</b></div>
+        <pre><code data-lang="json">{
+  "jsonrpc": "2.0",
+  "id": 7,
+  "method": "tools/call",
+  "params": {
+    "name": "get_forecast",
+    "arguments": {
+      "latitude": 41.39,
+      "longitude": 2.17
+    },
+    "_meta": {
+      "io.modelcontextprotocol/protocolVersion": "2026-07-28",
+      "io.modelcontextprotocol/clientCapabilities": {}
+    }
+  }
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="takeaway takeaway--warn">
+      <span class="takeaway__icon">!</span>
+      <span>
+        <b>Stateless no significa que tu app no tenga estado.</b> Significa que el protocolo
+        no lo guarda por ti: si una operación necesita contexto entre llamadas, el client
+        pasa un handle explícito en cada request.
+      </span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    <p>
+      Este es el cambio que más rompe material existente. La gente aprendió MCP con el
+      handshake y las sesiones; en 2026-07-28 eso desapareció. La versión no subió a
+      2026-08-01 ni a v2: sigue el formato de fecha y la revisión es 2026-07-28.
+    </p>
+    <p>
+      <strong>Por qué importa en producción:</strong> un server stateless se puede reiniciar,
+      escalar horizontalmente y balancear sin sticky sessions. Cada request es autosuficiente.
+      La contrapartida es que el estado de negocio debe viajar explícito.
+    </p>
+    <p>
+      La nota de <code>Mcp-Session-Id</code> es literal: ya no existe en el transporte. Si lo
+      ves en un client o en un proxy, está hablando la versión anterior.
+    </p>
+    <p>
+      El matiz de compatibilidad: un server dual-era puede atender clients modernos y legacy.
+      <code>serveStdio</code> lo hace por ti; el código manual con <code>StdioServerTransport</code>
+      se queda solo en legacy.
+    </p>
+  </aside>
+</section>
